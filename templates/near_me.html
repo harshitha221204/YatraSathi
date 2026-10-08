@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Near Me | YatraSathi</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: Arial, sans-serif; background: #fff8f0; color: #222; }
+        .topbar { background: #fff; padding: 14px 7%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 14px rgba(0,0,0,.08); }
+        .brand { color: #f28c28; font-size: 23px; font-weight: 800; text-decoration: none; }
+        .back { color: #fff; background: #f28c28; padding: 10px 16px; border-radius: 10px; text-decoration: none; font-weight: 700; }
+        .hero { text-align: center; padding: 55px 20px 30px; }
+        .hero-icon { width: 72px; height: 72px; margin: 0 auto 14px; display: grid; place-items: center; border-radius: 50%; color: #fff; background: linear-gradient(135deg,#f59e0b,#f97316); font-size: 29px; box-shadow: 0 10px 28px rgba(245,158,11,.28); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(245,158,11,.35); } 70% { box-shadow: 0 0 0 16px rgba(245,158,11,0); } 100% { box-shadow: 0 0 0 0 rgba(245,158,11,0); } }
+        .hero h1 { margin: 0; font-size: 38px; }
+        .hero h1 span { color: #f28c28; }
+        .hero p { color: #667085; max-width: 650px; margin: 10px auto 0; line-height: 1.7; }
+        .wrap { max-width: 1080px; margin: auto; padding: 10px 20px 60px; }
+        .card { background: #fff; border-radius: 20px; padding: 28px; box-shadow: 0 10px 35px rgba(0,0,0,.08); margin-bottom: 22px; }
+        .location-card { text-align: center; }
+        .location-btn { border: 0; border-radius: 12px; padding: 13px 22px; color: #fff; background: linear-gradient(135deg,#f59e0b,#f97316); font-weight: 800; cursor: pointer; box-shadow: 0 8px 20px rgba(245,158,11,.25); transition: .25s; }
+        .location-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(245,158,11,.35); }
+        #status { min-height: 24px; margin-top: 15px; color: #667085; }
+        #status.ok { color: #15803d; } #status.error { color: #b91c1c; }
+        .coords { display: none; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
+        .coords.show { display: grid; }
+        .coord { text-align: left; background: #fff7ed; border-radius: 12px; padding: 14px; }
+        .coord small { display: block; color: #777; margin-bottom: 5px; }
+        #mapCard { display: none; }
+        #mapCard.show { display: block; }
+        #map { height: 430px; border-radius: 15px; overflow: hidden; }
+        .map-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 16px; }
+        .map-link { display: inline-flex; align-items: center; gap: 8px; padding: 11px 17px; border-radius: 10px; color: #fff; text-decoration: none; font-weight: 700; background: #2563eb; }
+        .map-link.orange { background: #f28c28; }
+        .tip { margin-top: 15px; color: #667085; font-size: 13px; line-height: 1.6; }
+        @media (max-width: 650px) { .hero h1 { font-size: 29px; } .coords { grid-template-columns: 1fr; } #map { height: 340px; } .card { padding: 20px; } }
+    </style>
+</head>
+<body>
+
+<nav class="topbar">
+    <a class="brand" href="{{ url_for('home') }}">🌄 YatraSathi</a>
+    <a class="back" href="{{ url_for('home') }}"><i class="fa-solid fa-house"></i> Home</a>
+</nav>
+
+<section class="hero">
+    <div class="hero-icon"><i class="fa-solid fa-location-crosshairs"></i></div>
+    <h1>Explore <span>Near Me</span></h1>
+    <p>Use your current location to see where you are and quickly search for tourist attractions around you.</p>
+</section>
+
+<main class="wrap">
+    <section class="card location-card">
+        <h2>📍 Find My Current Location</h2>
+        <p>Click the button and choose <strong>Allow</strong> when your browser asks for location permission.</p>
+
+        <button type="button" class="location-btn" id="locateButton">
+            <i class="fa-solid fa-location-crosshairs"></i> Use My Current Location
+        </button>
+
+        <div id="status"></div>
+
+        <div class="coords" id="coords">
+            <div class="coord"><small>Latitude</small><strong id="latitude">-</strong></div>
+            <div class="coord"><small>Longitude</small><strong id="longitude">-</strong></div>
+        </div>
+
+        <p class="tip">Location works on <strong>localhost</strong> and on deployed sites using <strong>HTTPS</strong>. If permission was blocked earlier, enable Location permission from your browser's site settings.</p>
+    </section>
+
+    <section class="card" id="mapCard">
+        <h2><i class="fa-solid fa-map-location-dot" style="color:#f28c28"></i> Your Location</h2>
+        <div id="map"></div>
+        <div class="map-actions">
+            <a id="attractionsLink" class="map-link" href="#" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-landmark"></i> Tourist Places Nearby
+            </a>
+            <a id="restaurantsLink" class="map-link orange" href="#" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-utensils"></i> Restaurants Nearby
+            </a>
+        </div>
+    </section>
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function () {
+    const locateButton = document.getElementById("locateButton");
+    const status = document.getElementById("status");
+    const coords = document.getElementById("coords");
+    const mapCard = document.getElementById("mapCard");
+    let map = null;
+    let marker = null;
+    let accuracyCircle = null;
+
+    function setStatus(message, type) {
+        status.textContent = message;
+        status.className = type || "";
+    }
+
+    function showLocation(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        const accuracy = position.coords.accuracy || 0;
+
+        document.getElementById("latitude").textContent = lat.toFixed(6);
+        document.getElementById("longitude").textContent = lon.toFixed(6);
+        coords.classList.add("show");
+        mapCard.classList.add("show");
+        setStatus("Location found successfully.", "ok");
+
+        if (!map) {
+            map = L.map("map").setView([lat, lon], 14);
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                maxZoom: 19,
+                attribution: "&copy; OpenStreetMap contributors"
+            }).addTo(map);
+        } else {
+            map.setView([lat, lon], 14);
+        }
+
+        if (marker) map.removeLayer(marker);
+        if (accuracyCircle) map.removeLayer(accuracyCircle);
+
+        marker = L.marker([lat, lon]).addTo(map).bindPopup("<b>📍 You are here</b>").openPopup();
+        accuracyCircle = L.circle([lat, lon], { radius: accuracy }).addTo(map);
+
+        setTimeout(function () { map.invalidateSize(); }, 200);
+
+        const base = "https://www.google.com/maps/search/?api=1&query=";
+        document.getElementById("attractionsLink").href = base + encodeURIComponent("tourist attractions near " + lat + "," + lon);
+        document.getElementById("restaurantsLink").href = base + encodeURIComponent("restaurants near " + lat + "," + lon);
+    }
+
+    function showError(error) {
+        let message = "Unable to find your location.";
+        if (error.code === error.PERMISSION_DENIED) message = "Location permission was denied. Please allow location access and try again.";
+        else if (error.code === error.POSITION_UNAVAILABLE) message = "Your current location is unavailable.";
+        else if (error.code === error.TIMEOUT) message = "Location request timed out. Please try again.";
+        setStatus(message, "error");
+    }
+
+    locateButton.addEventListener("click", function () {
+        if (!navigator.geolocation) {
+            setStatus("Location is not supported by this browser.", "error");
+            return;
+        }
+
+        setStatus("Finding your current location...");
+        navigator.geolocation.getCurrentPosition(showLocation, showError, {
+            enableHighAccuracy: true,
+            timeout: 15000,
+            maximumAge: 60000
+        });
+    });
+})();
+</script>
+</body>
+</html>

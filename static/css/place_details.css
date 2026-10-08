@@ -1,0 +1,29 @@
+.place-hero {
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 80px 20px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.place-hero-content {
+    max-width: 900px;
+    padding: 20px;
+}
+
+.place-hero-content h1 {
+    font-size: 52px;
+    font-weight: 700;
+    margin: 20px 0;
+}
+
+.place-hero-content p {
+    font-size: 18px;
+    line-height: 1.7;
+}

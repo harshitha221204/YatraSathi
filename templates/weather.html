@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Live Weather | YatraSathi
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/weather.css') }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- ======================================================
+     NAVBAR
+======================================================= -->
+
+<nav class="navbar">
+
+    <a
+        href="{{ url_for('home') }}"
+        class="logo"
+    >
+        <span>Yatra</span>Sathi
+    </a>
+
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('explore') }}">
+            Explore
+        </a>
+
+        <a href="{{ url_for('planner') }}">
+            Planner
+        </a>
+
+        <a
+            href="{{ url_for('weather_page') }}"
+            class="active"
+        >
+            Weather
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- ======================================================
+     HERO
+======================================================= -->
+
+<section class="weather-hero">
+
+    <div class="hero-content">
+
+        <span class="hero-badge">
+            <i class="fa-solid fa-cloud-sun"></i>
+            Live Weather
+        </span>
+
+        <h1>
+            Check Weather Before You Travel
+        </h1>
+
+        <p>
+            Get current weather and a 5-day forecast
+            for your Karnataka destination.
+        </p>
+
+
+        <!-- DESTINATION SELECT -->
+
+        <div class="weather-search">
+
+            <select id="destination">
+
+                <option value="">
+                    Select a destination
+                </option>
+
+                {% for place_name in places.keys() %}
+
+                    <option value="{{ place_name }}">
+                        {{ place_name }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+
+            <button
+                id="weatherButton"
+                type="button"
+            >
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                Check Weather
+
+            </button>
+
+        </div>
+
+
+        <p
+            id="errorMessage"
+            class="error-message"
+        ></p>
+
+    </div>
+
+</section>
+
+
+
+<!-- ======================================================
+     LOADING
+======================================================= -->
+
+<section
+    id="loading"
+    class="loading hidden"
+>
+
+    <div class="spinner"></div>
+
+    <p>
+        Getting live weather...
+    </p>
+
+</section>
+
+
+
+<!-- ======================================================
+     WEATHER RESULT
+======================================================= -->
+
+<section
+    id="weatherResult"
+    class="weather-section hidden"
+>
+
+    <div class="weather-container">
+
+
+        <!-- CURRENT WEATHER -->
+
+        <div class="current-weather">
+
+
+            <div class="weather-heading">
+
+                <div>
+
+                    <p class="live-label">
+                        <span></span>
+                        LIVE WEATHER
+                    </p>
+
+                    <h2 id="placeName">
+                        Destination
+                    </h2>
+
+                    <p id="updatedTime">
+                        Updated now
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="weatherIcon"
+                    class="main-weather-icon"
+                >
+                    ☀️
+                </div>
+
+            </div>
+
+
+
+            <div class="temperature-row">
+
+                <div>
+
+                    <span
+                        id="temperature"
+                        class="temperature"
+                    >
+                        --
+                    </span>
+
+                    <span class="degree">
+                        °C
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <h3 id="condition">
+                        Weather
+                    </h3>
+
+                    <p>
+                        Feels like
+                        <span id="feelsLike">
+                            --
+                        </span>°C
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- WEATHER DETAILS -->
+
+            <div class="weather-details">
+
+
+                <div class="detail-card">
+
+                    <i class="fa-solid fa-droplet"></i>
+
+                    <div>
+                        <span>Humidity</span>
+
+                        <strong id="humidity">
+                            --
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="detail-card">
+
+                    <i class="fa-solid fa-cloud-rain"></i>
+
+                    <div>
+                        <span>Precipitation</span>
+
+                        <strong id="precipitation">
+                            --
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="detail-card">
+
+                    <i class="fa-solid fa-wind"></i>
+
+                    <div>
+                        <span>Wind Speed</span>
+
+                        <strong id="windSpeed">
+                            --
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="detail-card">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    <div>
+                        <span>Location</span>
+
+                        <strong>
+                            Karnataka
+                        </strong>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==================================================
+             FORECAST
+        =================================================== -->
+
+        <div class="forecast-section">
+
+            <div class="forecast-title">
+
+                <div>
+
+                    <span class="small-title">
+                        TRIP PLANNING
+                    </span>
+
+                    <h2>
+                        5-Day Forecast
+                    </h2>
+
+                </div>
+
+                <i class="fa-solid fa-calendar-days"></i>
+
+            </div>
+
+
+            <div
+                id="forecastContainer"
+                class="forecast-grid"
+            >
+            </div>
+
+        </div>
+
+
+        <p class="weather-note">
+
+            Weather forecasts may change.
+            Check again before starting your journey.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<script
+    src="{{ url_for('static', filename='js/weather.js') }}"
+></script>
+
+
+</body>
+
+</html>

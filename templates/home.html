@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>YatraSathi | Smart Karnataka Tourism</title>
+
+
+    <!-- Bootstrap -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- Font Awesome -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- Google Font -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Home feature styles: Live Weather + Voice Assistant -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/home-extras.css') }}"
+    >
+
+
+    <style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: "Poppins", sans-serif;
+        background: #FFF8F0;
+        color: #333333;
+    }
+
+    /* ================= NAVBAR ================= */
+
+    .navbar {
+        background: #FFFFFF;
+        padding: 14px 0;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+
+    .navbar-brand {
+        font-size: 25px;
+        font-weight: 700;
+        color: #F28C28 !important;
+    }
+
+    .navbar .nav-link {
+        color: #333333 !important;
+        margin: 0 7px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: 0.3s;
+    }
+
+    .navbar .nav-link:hover {
+        color: #F28C28 !important;
+    }
+
+    .language-selector {
+        width: 125px;
+        border-radius: 20px;
+        border: 1px solid #F28C28;
+        color: #333333;
+        background: white;
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+
+    /* ================= HERO ================= */
+
+    .hero {
+        min-height: 90vh;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        text-align: center;
+
+        color: white;
+
+        background:
+            linear-gradient(
+                rgba(0, 0, 0, 0.48),
+                rgba(0, 0, 0, 0.48)
+            ),
+            url("{{ url_for('static', filename='images/hampi_bg.jpg') }}");
+
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .hero-content {
+        max-width: 900px;
+        padding: 30px;
+    }
+
+    .hero-badge {
+        display: inline-block;
+
+        background: #F28C28;
+
+        color: white;
+
+        padding: 8px 18px;
+
+        border-radius: 30px;
+
+        margin-bottom: 20px;
+
+        font-size: 14px;
+    }
+
+    .hero h1 {
+        font-size: 55px;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 20px;
+    }
+
+    .hero p {
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+
+    /* ================= BUTTONS ================= */
+
+    .hero-buttons a {
+        text-decoration: none;
+
+        padding: 13px 25px;
+
+        border-radius: 30px;
+
+        margin: 5px;
+
+        font-weight: 600;
+
+        display: inline-block;
+    }
+
+    .btn-main {
+        background: #F28C28;
+        color: white;
+    }
+
+    .btn-main:hover {
+        background: #D96F00;
+        color: white;
+    }
+
+    .btn-outline {
+        border: 2px solid white;
+        color: white;
+    }
+
+    .btn-outline:hover {
+        background: white;
+        color: #F28C28;
+    }
+
+    /* ================= STATS ================= */
+
+    .stats-section {
+        margin-top: -45px;
+        position: relative;
+        z-index: 5;
+    }
+
+    .stats-card {
+        background: white;
+
+        border-radius: 18px;
+
+        padding: 25px 15px;
+
+        text-align: center;
+
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+
+        border-top: 4px solid #F28C28;
+    }
+
+    .stats-card h3 {
+        color: #F28C28;
+        font-weight: 800;
+        margin-bottom: 5px;
+    }
+
+    .stats-card p {
+        margin: 0;
+        color: #777777;
+        font-size: 14px;
+    }
+
+    /* ================= SEARCH ================= */
+
+    .search-section {
+        padding: 80px 0 50px;
+    }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .section-title h2 {
+        font-weight: 700;
+        color: #333333;
+    }
+
+    .section-title p {
+        color: #777777;
+    }
+
+    .search-card {
+        background: white;
+
+        padding: 30px;
+
+        border-radius: 20px;
+
+        box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+
+        border: 1px solid #FFE0BF;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #333333;
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 10px;
+        padding: 12px;
+        border: 1px solid #DDDDDD;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #F28C28;
+        box-shadow: 0 0 0 0.2rem rgba(242,140,40,0.15);
+    }
+
+    .search-btn {
+        background: #F28C28;
+        color: white;
+
+        border: none;
+
+        border-radius: 10px;
+
+        padding: 12px 25px;
+
+        width: 100%;
+
+        font-weight: 600;
+    }
+
+    .search-btn:hover {
+        background: #D96F00;
+        color: white;
+    }
+
+    /* ================= CATEGORIES ================= */
+
+    .categories-section {
+        padding: 50px 0 80px;
+    }
+
+    .category-card {
+        background: white;
+
+        border-radius: 18px;
+
+        padding: 25px 15px;
+
+        text-align: center;
+
+        height: 100%;
+
+        border: 1px solid #FFE0BF;
+
+        transition: 0.3s;
+    }
+
+    .category-card:hover {
+        transform: translateY(-7px);
+
+        box-shadow: 0 10px 25px rgba(242,140,40,0.15);
+
+        border-color: #F28C28;
+    }
+
+    .category-icon {
+        width: 65px;
+        height: 65px;
+
+        border-radius: 50%;
+
+        background: #FFF0DF;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        margin: auto auto 15px;
+
+        color: #F28C28;
+
+        font-size: 25px;
+    }
+
+    .category-card h5 {
+        color: #333333;
+
+        font-size: 16px;
+
+        font-weight: 600;
+    }
+
+    /* ================= FEATURES ================= */
+
+    .features-section {
+        background: white;
+
+        color: #333333;
+
+        padding: 80px 0;
+
+        border-top: 1px solid #FFE0BF;
+
+        border-bottom: 1px solid #FFE0BF;
+    }
+
+    .features-section .section-title h2 {
+        color: #333333 !important;
+    }
+
+    .feature-card {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .feature-card i {
+        font-size: 35px;
+
+        color: #F28C28;
+
+        margin-bottom: 18px;
+    }
+
+    .feature-card h5 {
+        font-weight: 600;
+        color: #333333;
+    }
+
+    .feature-card p {
+        color: #777777;
+        font-size: 14px;
+    }
+
+    /* ================= CTA ================= */
+
+    .cta-section {
+        padding: 80px 0;
+        text-align: center;
+    }
+
+    .cta-box {
+        background: #F28C28;
+
+        border-radius: 25px;
+
+        color: white;
+
+        padding: 55px 25px;
+
+        box-shadow: 0 10px 30px rgba(242,140,40,0.2);
+    }
+
+    .cta-box h2 {
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+
+    .cta-box p {
+        opacity: 0.9;
+        margin-bottom: 25px;
+    }
+
+    .cta-box .btn-warning {
+        background: white;
+        color: #F28C28;
+        border: none;
+        font-weight: 600;
+    }
+
+    .cta-box .btn-warning:hover {
+        background: #FFF0DF;
+        color: #D96F00;
+    }
+
+    /* ================= FOOTER ================= */
+
+    footer {
+        background: #FFFFFF;
+
+        color: #333333;
+
+        padding: 35px 0;
+
+        text-align: center;
+
+        border-top: 1px solid #FFE0BF;
+    }
+
+    footer h5 {
+        color: #F28C28;
+    }
+
+    footer p {
+        margin: 5px;
+
+        color: #777777;
+
+        font-size: 14px;
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media(max-width: 768px) {
+
+        .hero h1 {
+            font-size: 38px;
+        }
+
+        .hero p {
+            font-size: 17px;
+        }
+
+        .stats-section {
+            margin-top: 20px;
+        }
+
+        .language-selector {
+            margin-top: 10px;
+        }
+
+    }
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ===================================================== -->
+<!-- NAVBAR -->
+<!-- ===================================================== -->
+
+<nav class="navbar navbar-expand-lg navbar-light">
+
+    <div class="container">
+
+
+        <a
+            class="navbar-brand"
+            href="{{ url_for('home') }}"
+        >
+
+            🌄 YatraSathi
+
+        </a>
+
+
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+        >
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+
+        <div
+            class="collapse navbar-collapse"
+            id="mainNavbar"
+        >
+
+
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+
+                <!-- HOME -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('home') }}"
+                        data-translate="home"
+                    >
+
+                        Home
+
+                    </a>
+
+                </li>
+
+
+                <!-- EXPLORE -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('explore') }}"
+                        data-translate="explore"
+                    >
+
+                        Explore Karnataka
+
+                    </a>
+
+                </li>
+
+
+                <!-- AI STORY -->
+
+                
+
+
+                <!-- PLAN -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('planner') }}"
+                        data-translate="plan"
+                    >
+
+                        Plan Trip
+
+                    </a>
+
+                </li>
+
+
+                <!-- HOTELS -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('explore') }}"
+                        data-translate="find_hotels"
+                    >
+
+                        Hotels
+
+                    </a>
+
+                </li>
+
+
+                <!-- RESTAURANTS -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('explore') }}"
+                        data-translate="restaurants"
+                    >
+
+                        Restaurants
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('near_me') }}"
+                        data-translate="near_me"
+                    >
+                        <i class="fa-solid fa-location-crosshairs me-1"></i>
+                        Near Me
+                    </a>
+
+                </li>
+
+
+                <!-- LANGUAGE -->
+
+                <li class="nav-item ms-lg-2">
+
+                    <select
+                        id="languageSelector"
+                        class="form-select language-selector"
+                    >
+
+                        <option value="en">
+                            English
+                        </option>
+
+                        <option value="hi">
+                            हिन्दी
+                        </option>
+
+                        <option value="kn">
+                            ಕನ್ನಡ
+                        </option>
+
+                    </select>
+
+                </li>
+
+
+                {% if session.get('user_name') %}
+
+                <li class="nav-item ms-lg-2">
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('dashboard') }}"
+                        data-translate="dashboard"
+                    >
+                        Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link text-warning"
+                        href="{{ url_for('logout') }}"
+                        data-translate="logout"
+                    >
+                        Logout
+                    </a>
+                </li>
+
+                {% else %}
+
+                <li class="nav-item ms-lg-2">
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('login') }}"
+                        data-translate="login"
+                    >
+                        Login
+                    </a>
+                </li>
+
+                {% endif %}
+
+                <!-- LIVE WEATHER MUST STAY LAST -->
+                <li class="nav-item ms-lg-2 weather-nav-item">
+                    <a
+                        href="{{ url_for('weather_page') }}"
+                        class="live-weather-feature-btn"
+                        aria-label="Open live weather"
+                    >
+                        <span class="weather-animation" aria-hidden="true">
+                            <i class="fa-solid fa-sun weather-sun"></i>
+                            <i class="fa-solid fa-cloud weather-cloud"></i>
+                        </span>
+
+                        <span class="weather-button-text">
+                            <span class="weather-live">
+                                <span class="live-dot"></span>
+                                LIVE
+                            </span>
+                            <span class="weather-title" data-translate="live_weather">Weather</span>
+                        </span>
+
+                        <i class="fa-solid fa-arrow-right weather-arrow" aria-hidden="true"></i>
+                    </a>
+                </li>
+
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- ===================================================== -->
+<!-- HERO -->
+<!-- ===================================================== -->
+
+<section class="hero">
+
+
+    <div class="hero-content">
+
+
+        <div class="hero-badge">
+
+            <i class="fa-solid fa-sparkles"></i>
+
+            <span data-translate="hero_subtitle">
+
+                AI Powered Smart Tourism
+
+            </span>
+
+        </div>
+
+
+
+        <h1 data-translate="hero_title">
+
+            Explore Karnataka Like Never Before
+
+        </h1>
+
+
+
+        <p>
+
+            Discover beautiful destinations, create smart
+            itineraries and explore Karnataka with YatraSathi.
+
+        </p>
+
+
+
+        <div class="hero-buttons">
+
+
+            <a
+                href="{{ url_for('explore') }}"
+                class="btn-main"
+                data-translate="explore"
+            >
+
+                Explore Karnataka
+
+            </a>
+
+
+
+            <a
+                href="{{ url_for('planner') }}"
+                class="btn-outline"
+                data-translate="plan"
+            >
+
+                Plan Trip
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ===================================================== -->
+<!-- STATS -->
+<!-- ===================================================== -->
+
+<section class="stats-section">
+
+    <div class="container">
+
+
+        <div class="row g-3">
+
+            <div class="col-6 col-md-3">
+                <div class="stats-card">
+                    <h3>95+</h3>
+                    <p>Destinations</p>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-3">
+                <div class="stats-card">
+                    <h3>30+</h3>
+                    <p>Districts Covered</p>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-3">
+                <div class="stats-card">
+                    <h3>AI</h3>
+                    <p>Smart Trip Planner</p>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-3">
+                <div class="stats-card">
+                    <h3>5-Day</h3>
+                    <p>Live Weather Forecast</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ===================================================== -->
+<!-- SEARCH -->
+<!-- ===================================================== -->
+
+<section class="search-section">
+
+
+    <div class="container">
+
+
+        <div class="section-title">
+
+            <h2>
+
+                Find Your Destination
+
+            </h2>
+
+            <p>
+
+                Search and discover amazing places in Karnataka.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="search-card">
+
+
+            <div class="row g-3">
+
+
+                <!-- SEARCH -->
+
+                <div class="col-md-4">
+
+                    <label
+                        class="form-label"
+                        data-translate="search"
+                    >
+
+                        Search Destination
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="destinationSearch"
+                        placeholder="Search Destination"
+                        data-translate-placeholder="search"
+                    >
+
+                </div>
+
+
+
+                <!-- DISTRICT -->
+
+                <div class="col-md-3">
+
+                    <label
+                        class="form-label"
+                        data-translate="district"
+                    >
+
+                        District
+
+                    </label>
+
+
+                    <select
+                        class="form-select"
+                        id="districtFilter"
+                    >
+
+                        <option value="">
+                            All Districts
+                        </option>
+
+                        <option value="Mysuru">
+                            Mysuru
+                        </option>
+
+                        <option value="Udupi">
+                            Udupi
+                        </option>
+
+                        <option value="Hassan">
+                            Hassan
+                        </option>
+
+                        <option value="Shivamogga">
+                            Shivamogga
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- CATEGORY -->
+
+                <div class="col-md-3">
+
+                    <label
+                        class="form-label"
+                        data-translate="category"
+                    >
+
+                        Category
+
+                    </label>
+
+
+                    <select
+                        class="form-select"
+                        id="categoryFilter"
+                    >
+
+                        <option value="">
+                            All Categories
+                        </option>
+
+                        <option value="Temple">
+                            Temples
+                        </option>
+
+                        <option value="Waterfall">
+                            Waterfalls
+                        </option>
+
+                        <option value="Beach">
+                            Beaches
+                        </option>
+
+                        <option value="Hill Station">
+                            Hill Stations
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- BUTTON -->
+
+                <div class="col-md-2 d-flex align-items-end">
+
+                    <a
+                        href="{{ url_for('explore') }}"
+                        id="homeExploreSearch"
+                        class="search-btn text-center text-decoration-none"
+                    >
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                        <span data-translate="explore">
+                            Explore
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ===================================================== -->
+<!-- CATEGORIES -->
+<!-- ===================================================== -->
+
+<section class="categories-section">
+
+
+    <div class="container">
+
+
+        <div class="section-title">
+
+            <h2>
+
+                Explore By Category
+
+            </h2>
+
+            <p>
+
+                Choose the type of experience you want.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="row g-4">
+
+
+            <!-- HERITAGE -->
+
+            <div class="col-6 col-md-3">
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+
+                        <i class="fa-solid fa-landmark"></i>
+
+                    </div>
+
+
+                    <h5 data-translate="heritage">
+
+                        Heritage
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- HILLS -->
+
+            <div class="col-6 col-md-3">
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+
+                        <i class="fa-solid fa-mountain"></i>
+
+                    </div>
+
+
+                    <h5 data-translate="hills">
+
+                        Hill Stations
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- WATERFALLS -->
+
+            <div class="col-6 col-md-3">
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+
+                        <i class="fa-solid fa-water"></i>
+
+                    </div>
+
+
+                    <h5 data-translate="waterfalls">
+
+                        Waterfalls
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- BEACH -->
+
+            <div class="col-6 col-md-3">
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+
+                        <i class="fa-solid fa-umbrella-beach"></i>
+
+                    </div>
+
+
+                    <h5 data-translate="beaches">
+
+                        Beaches
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- WILDLIFE -->
+
+            <div class="col-6 col-md-3">
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+
+                        <i class="fa-solid fa-paw"></i>
+
+                    </div>
+
+
+                    <h5 data-translate="wildlife">
+
+                        Wildlife
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TEMPLES -->
+
+            <div class="col-6 col-md-3">
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+
+                        <i class="fa-solid fa-gopuram"></i>
+
+                    </div>
+
+
+                    <h5 data-translate="temples">
+
+                        Temples
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FOOD -->
+
+            <div class="col-6 col-md-3">
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+
+                        <i class="fa-solid fa-utensils"></i>
+
+                    </div>
+
+
+                    <h5 data-translate="food">
+
+                        Food
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PHOTOGRAPHY -->
+
+            <div class="col-6 col-md-3">
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+
+                        <i class="fa-solid fa-camera"></i>
+
+                    </div>
+
+
+                    <h5 data-translate="photography">
+
+                        Photography
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ===================================================== -->
+<!-- FEATURES -->
+<!-- ===================================================== -->
+
+<section class="features-section">
+
+
+    <div class="container">
+
+
+        <div class="section-title text-white">
+
+            <h2 class="text-white">
+
+                Why Use YatraSathi?
+
+            </h2>
+
+            <p class="text-white-50">
+
+                Everything you need for a smart Karnataka trip.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="row g-4">
+
+
+            <div class="col-md-3">
+
+                <div class="feature-card">
+
+                    <i class="fa-solid fa-robot"></i>
+
+                    <h5>
+
+                        AI Travel Assistant
+
+                    </h5>
+
+                    <p>
+
+                        Get travel information and suggestions
+                        using our AI tourism assistant.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="col-md-3">
+
+                <div class="feature-card">
+
+                    <i class="fa-solid fa-route"></i>
+
+                    <h5>
+
+                        Smart Itinerary
+
+                    </h5>
+
+                    <p>
+
+                        Create a personalized trip according
+                        to your days and interests.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="col-md-3">
+
+                <div class="feature-card">
+
+                    <i class="fa-solid fa-wallet"></i>
+
+                    <h5>
+
+                        Budget Planning
+
+                    </h5>
+
+                    <p>
+
+                        Plan your transport, hotel, food
+                        and activity expenses.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="col-md-3">
+
+                <div class="feature-card">
+
+                    <i class="fa-solid fa-map-location-dot"></i>
+
+                    <h5>
+
+                        Explore Karnataka
+
+                    </h5>
+
+                    <p>
+
+                        Discover famous and lesser-known
+                        destinations across Karnataka.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ===================================================== -->
+<!-- CTA -->
+<!-- ===================================================== -->
+
+<section class="cta-section">
+
+
+    <div class="container">
+
+
+        <div class="cta-box">
+
+
+            <h2>
+
+                Ready to Explore Karnataka?
+
+            </h2>
+
+
+            <p>
+
+                Start planning your next unforgettable journey.
+
+            </p>
+
+
+            <a
+                href="{{ url_for('planner') }}"
+                class="btn btn-warning px-4 py-2"
+                data-translate="generate_trip"
+            >
+
+                Plan My Trip
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ===================================================== -->
+<!-- FOOTER -->
+<!-- ===================================================== -->
+
+<footer>
+
+
+    <div class="container">
+
+
+        <h5>
+
+            🌄 YatraSathi
+
+        </h5>
+
+
+        <p data-translate="footer_text">
+
+            Smart Tourism for Karnataka
+
+        </p>
+
+
+        <p>
+
+            © 2026 YatraSathi. All Rights Reserved.
+
+        </p>
+
+
+    </div>
+
+</footer>
+
+
+
+<!-- ===================================================== -->
+<!-- YATRASATHI VOICE + SMART ASSISTANT -->
+<!-- ===================================================== -->
+
+<div
+    class="ys-assistant"
+    id="ysAssistant"
+    data-home-url="{{ url_for('home') }}"
+    data-explore-url="{{ url_for('explore') }}"
+    data-planner-url="{{ url_for('planner') }}"
+    data-weather-url="{{ url_for('weather_page') }}"
+    data-near-me-url="{{ url_for('near_me') }}"
+    data-login-url="{{ url_for('login') }}"
+>
+
+    <div class="ys-assistant-panel" id="ysAssistantPanel">
+
+        <div class="ys-assistant-header">
+            <div class="ys-assistant-logo">
+                <i class="fa-solid fa-route"></i>
+            </div>
+            <div>
+                <h4>YatraSathi Assistant</h4>
+                <p>Translate, speak and ask by voice</p>
+            </div>
+        </div>
+
+        <div class="ys-language-box">
+            <i class="fa-solid fa-language"></i>
+            <select id="assistantLanguage" aria-label="Assistant language">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+                <option value="kn">ಕನ್ನಡ</option>
+            </select>
+        </div>
+
+        <div class="ys-action-grid">
+            <button type="button" class="ys-action-btn" id="ysVoiceCommand">
+                <i class="fa-solid fa-microphone"></i>
+                <span>Voice Command</span>
+            </button>
+
+            <button type="button" class="ys-action-btn" id="ysSpeakPage">
+                <i class="fa-solid fa-volume-high"></i>
+                <span>Speak Page</span>
+            </button>
+
+            <button type="button" class="ys-action-btn" id="ysStopSpeaking">
+                <i class="fa-solid fa-volume-xmark"></i>
+                <span>Stop Voice</span>
+            </button>
+
+            <button type="button" class="ys-action-btn" id="ysOpenChat">
+                <i class="fa-solid fa-comments"></i>
+                <span>Ask AI</span>
+            </button>
+
+            <button type="button" class="ys-action-btn" id="ysOpenWeather">
+                <i class="fa-solid fa-cloud-sun"></i>
+                <span>Live Weather</span>
+            </button>
+
+            <button type="button" class="ys-action-btn" id="ysOpenNearMe">
+                <i class="fa-solid fa-location-crosshairs"></i>
+                <span>Near Me</span>
+            </button>
+        </div>
+
+        <p class="ys-voice-status" id="ysVoiceStatus">
+            Click Voice Command and speak.
+        </p>
+    </div>
+
+    <button
+        type="button"
+        class="ys-assistant-button"
+        id="ysAssistantButton"
+        aria-label="Open YatraSathi voice assistant"
+        title="YatraSathi Voice Assistant"
+    >
+        <i class="fa-solid fa-route"></i>
+    </button>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- JAVASCRIPT -->
+<!-- ===================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+<script
+    src="{{ url_for('static', filename='js/script.js') }}">
+</script>
+
+
+<!-- TRANSLATION -->
+
+<script
+    src="{{ url_for('static', filename='js/translation.js') }}">
+</script>
+
+<script
+    src="{{ url_for('static', filename='js/yatrasathi-assistant.js') }}">
+</script>
+
+
+<!-- CHATBOT -->
+
+{% include 'chatbot.html' %}
+
+
+
+</body>
+
+</html>

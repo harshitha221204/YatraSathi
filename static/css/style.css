@@ -1,0 +1,2200 @@
+/* ===========================
+   GOOGLE FONT
+=========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f8f9fa;
+    overflow-x:hidden;
+}
+
+/* =========================
+   YATRASATHI CHATBOT
+========================= */
+
+.chatbot-button {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+
+    width: 62px;
+    height: 62px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #f28c00;
+    color: white;
+
+    font-size: 25px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.25);
+
+    cursor: pointer;
+
+    z-index: 9998;
+
+    transition: 0.3s;
+}
+
+.chatbot-button:hover {
+    background: #df7900;
+    transform: scale(1.08);
+}
+
+
+/* CHAT WINDOW */
+
+.chatbot-box {
+    position: fixed;
+
+    right: 25px;
+    bottom: 100px;
+
+    width: 380px;
+    height: 550px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.22);
+
+    overflow: hidden;
+
+    display: none;
+    flex-direction: column;
+
+    z-index: 9999;
+
+    border: 1px solid #eee;
+}
+
+
+/* SHOW CHAT */
+
+.chatbot-box.show-chatbot {
+    display: flex;
+}
+
+
+/* HEADER */
+
+.chatbot-header {
+    background: #f28c00;
+
+    color: white;
+
+    padding: 17px 18px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chatbot-header h5 {
+    margin: 0;
+    font-weight: 700;
+}
+
+.chatbot-header small {
+    opacity: 0.9;
+}
+
+
+/* CLOSE */
+
+.close-chatbot {
+    border: none;
+    background: transparent;
+
+    color: white;
+
+    font-size: 22px;
+
+    cursor: pointer;
+}
+
+
+/* MESSAGES */
+
+.chat-messages {
+    flex: 1;
+
+    padding: 16px;
+
+    overflow-y: auto;
+
+    background: #fafafa;
+}
+
+
+/* GENERAL MESSAGE */
+
+.chat-message {
+    max-width: 82%;
+
+    padding: 11px 14px;
+
+    margin-bottom: 12px;
+
+    border-radius: 15px;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    word-wrap: break-word;
+}
+
+
+/* BOT */
+
+.bot-message {
+    background: white;
+
+    border: 1px solid #eee;
+
+    color: #333;
+
+    border-bottom-left-radius: 4px;
+}
+
+
+/* USER */
+
+.user-message {
+    background: #f28c00;
+
+    color: white;
+
+    margin-left: auto;
+
+    border-bottom-right-radius: 4px;
+}
+
+
+/* TYPING */
+
+.typing-message {
+    font-style: italic;
+    color: #777;
+}
+
+
+/* QUICK QUESTIONS */
+
+.quick-questions {
+    display: flex;
+
+    gap: 6px;
+
+    padding: 8px 10px;
+
+    overflow-x: auto;
+
+    border-top: 1px solid #eee;
+
+    background: white;
+}
+
+.quick-questions button {
+    white-space: nowrap;
+
+    border: 1px solid #f28c00;
+
+    background: white;
+
+    color: #d97900;
+
+    border-radius: 20px;
+
+    padding: 6px 10px;
+
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.quick-questions button:hover {
+    background: #fff3e3;
+}
+
+
+/* INPUT */
+
+.chatbot-input-area {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 12px;
+
+    background: white;
+
+    border-top: 1px solid #eee;
+}
+
+
+.chatbot-input-area input {
+    flex: 1;
+
+    border: 1px solid #ddd;
+
+    border-radius: 25px;
+
+    padding: 10px 15px;
+
+    outline: none;
+}
+
+.chatbot-input-area input:focus {
+    border-color: #f28c00;
+}
+
+
+/* BUTTONS */
+
+.send-button,
+.voice-button {
+    width: 42px;
+    height: 42px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+}
+
+
+.send-button {
+    background: #f28c00;
+    color: white;
+}
+
+.send-button:hover {
+    background: #df7900;
+}
+
+
+.voice-button {
+    background: #fff3e3;
+    color: #f28c00;
+}
+
+.voice-button:hover {
+    background: #ffe2ba;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 500px) {
+
+    .chatbot-box {
+        width: calc(100% - 20px);
+
+        height: 70vh;
+
+        right: 10px;
+        bottom: 85px;
+    }
+
+    .chatbot-button {
+        right: 15px;
+        bottom: 15px;
+    }
+}
+/* ==========================================
+   LIVE WEATHER NAVBAR BUTTON
+========================================== */
+
+.live-weather-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+
+    padding: 10px 18px !important;
+
+    background: #ff6b35 !important;
+    color: orange !important;
+
+    border: none !important;
+    outline: none !important;
+    border-radius: 8px !important;
+
+    font-family: "Poppins", sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+
+    cursor: pointer !important;
+
+    text-decoration: none !important;
+
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.25);
+
+    transition: 0.3s ease;
+}
+
+
+/* Weather icon */
+
+.live-weather-btn i {
+    color: orange !important;
+    font-size: 16px !important;
+}
+
+
+/* Text */
+
+.live-weather-btn span {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+
+/* Hover */
+
+.live-weather-btn:hover {
+    background: #e85b27 !important;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 6px 16px rgba(255, 107, 53, 0.35);
+}
+
+
+/* Click */
+
+.live-weather-btn:active {
+    transform: translateY(0);
+}
+/* ==========================================================
+   PREMIUM ANIMATED LIVE WEATHER BUTTON
+========================================================== */
+
+.live-weather-feature-btn {
+    position: relative !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 10px !important;
+
+    min-width: 155px !important;
+    height: 58px !important;
+
+    padding: 7px 16px !important;
+
+    background: linear-gradient(
+        135deg,
+        #ff7a18,
+        #ff9500
+    ) !important;
+
+    color: #ffffff !important;
+
+    border: none !important;
+    outline: none !important;
+
+    border-radius: 16px !important;
+
+    font-family: "Poppins", sans-serif !important;
+
+    cursor: pointer !important;
+
+    overflow: hidden !important;
+
+    box-shadow:
+        0 8px 20px rgba(255, 122, 24, 0.28) !important;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease !important;
+}
+
+
+/* ==========================================================
+   SHINE EFFECT
+========================================================== */
+
+.live-weather-feature-btn::before {
+    content: "";
+
+    position: absolute;
+
+    top: -50%;
+    left: -80%;
+
+    width: 45%;
+    height: 200%;
+
+    background: rgba(255, 255, 255, 0.35);
+
+    transform: rotate(25deg);
+
+    transition: 0.6s;
+}
+
+
+.live-weather-feature-btn:hover::before {
+    left: 130%;
+}
+
+
+/* ==========================================================
+   HOVER
+========================================================== */
+
+.live-weather-feature-btn:hover {
+    transform: translateY(-3px) scale(1.03) !important;
+
+    box-shadow:
+        0 12px 28px rgba(255, 122, 24, 0.40) !important;
+}
+
+
+.live-weather-feature-btn:active {
+    transform: scale(0.97) !important;
+}
+
+
+/* ==========================================================
+   WEATHER ICON AREA
+========================================================== */
+
+.weather-animation {
+    position: relative;
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+}
+
+
+/* SUN */
+
+.weather-sun {
+    position: absolute;
+
+    top: 1px;
+    left: 3px;
+
+    font-size: 22px;
+
+    color: #fff3a3 !important;
+
+    animation: weatherSunSpin 7s linear infinite;
+}
+
+
+@keyframes weatherSunSpin {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* CLOUD */
+
+.weather-cloud {
+    position: absolute;
+
+    bottom: 3px;
+    right: 0;
+
+    font-size: 23px;
+
+    color: #ffffff !important;
+
+    filter:
+        drop-shadow(
+            0 2px 2px rgba(0, 0, 0, 0.12)
+        );
+
+    animation:
+        weatherCloudMove 2.5s ease-in-out infinite;
+}
+
+
+@keyframes weatherCloudMove {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(4px);
+    }
+
+}
+
+
+/* ==========================================================
+   BUTTON TEXT
+========================================================== */
+
+.weather-button-text {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    line-height: 1.05;
+}
+
+
+.weather-live {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    margin-bottom: 4px;
+
+    font-size: 9px !important;
+    font-weight: 700 !important;
+
+    letter-spacing: 1.2px;
+
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+
+.weather-title {
+    font-size: 15px !important;
+    font-weight: 600 !important;
+
+    color: #ffffff !important;
+}
+
+
+/* ==========================================================
+   LIVE DOT
+========================================================== */
+
+.live-dot {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #b7ffbf;
+
+    box-shadow:
+        0 0 0 rgba(183, 255, 191, 0.8);
+
+    animation:
+        liveWeatherPulse 1.5s infinite;
+}
+
+
+@keyframes liveWeatherPulse {
+
+    0% {
+        box-shadow:
+            0 0 0 0 rgba(183, 255, 191, 0.8);
+    }
+
+    70% {
+        box-shadow:
+            0 0 0 7px rgba(183, 255, 191, 0);
+    }
+
+    100% {
+        box-shadow:
+            0 0 0 0 rgba(183, 255, 191, 0);
+    }
+
+}
+
+
+/* ==========================================================
+   ARROW
+========================================================== */
+
+.weather-arrow {
+    position: relative;
+    z-index: 2;
+
+    margin-left: 2px;
+
+    font-size: 13px !important;
+
+    color: #ffffff !important;
+
+    transition: transform 0.3s ease;
+}
+
+
+.live-weather-feature-btn:hover .weather-arrow {
+    transform: translateX(4px);
+}
+
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media (max-width: 768px) {
+
+    .live-weather-feature-btn {
+        min-width: 135px !important;
+        height: 52px !important;
+
+        padding: 6px 12px !important;
+
+        border-radius: 14px !important;
+    }
+
+    .weather-title {
+        font-size: 13px !important;
+    }
+
+    .weather-animation {
+        width: 32px;
+        height: 32px;
+    }
+
+    .weather-sun {
+        font-size: 18px;
+    }
+
+    .weather-cloud {
+        font-size: 19px;
+    }
+
+}
+
+/* ===========================
+   HERO BACKGROUND
+=========================== */
+
+.hero{height:100vh;
+    background:url('../images/hampi_bg.jpg') center/cover no-repeat;
+    animation:zoom 15s infinite alternate;
+    position:relative}
+    .overlay{position:absolute;inset:0;background:rgba(0,0,0,.45);display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff}body{margin:0;font-family:Arial}.btn{padding:12px 24px;background:#ff9800;border-radius:20px}@keyframes zoom{from{background-size:100%}to{background-size:110%}}.story{padding:40px}
+
+@keyframes zoomBackground{
+
+    from{
+        transform:scale(1);
+    }
+
+    to{
+        transform:scale(1.08);
+    }
+
+}
+
+.overlay{
+
+    width:100%;
+
+    height:100%;
+
+    background:linear-gradient(
+    rgba(0,0,0,.55),
+    rgba(0,0,0,.65));
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+/* ===========================
+   NAVBAR
+=========================== */
+
+.navbar{
+
+    background:rgba(0,0,0,.25);
+
+    backdrop-filter:blur(12px);
+
+    transition:.4s;
+
+}
+
+.navbar-brand{
+
+    font-size:30px;
+
+    font-weight:700;
+
+    color:#FFC107 !important;
+
+}
+
+.nav-link{
+
+    color:white !important;
+
+    margin-left:18px;
+
+    transition:.3s;
+
+}
+
+.nav-link:hover{
+
+    color:#FFC107 !important;
+
+}
+
+.language-select{
+
+    border-radius:25px;
+
+    border:none;
+
+    background:white;
+
+    font-size:14px;
+
+    width:150px;
+
+}
+
+/* ===========================
+   HERO TEXT
+=========================== */
+
+.hero-title{
+
+    color:white;
+
+    font-size:65px;
+
+    font-weight:700;
+
+    animation:slideUp 1.2s ease;
+
+}
+
+.hero-title span{
+
+    color:#FFC107;
+
+}
+
+.hero-text{
+
+    color:white;
+
+    font-size:22px;
+
+    line-height:38px;
+
+}
+
+@keyframes slideUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(70px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.btn-warning{
+
+    background:#FF6B00;
+
+    border:none;
+
+    border-radius:40px;
+
+    padding:12px 30px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.btn-warning:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 10px 25px rgba(255,107,0,.5);
+
+}
+
+.btn-outline-light{
+
+    border-radius:40px;
+
+    padding:12px 30px;
+
+}
+
+/* ===========================
+   WEATHER CARD
+=========================== */
+
+.weather-card{
+
+    background:rgba(255,255,255,.18);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:20px;
+
+    padding:35px;
+
+    color:white;
+
+    box-shadow:0 15px 30px rgba(0,0,0,.3);
+
+    animation:floatCard 4s ease-in-out infinite;
+
+}
+
+@keyframes floatCard{
+
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-15px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+
+}
+
+/* ===========================
+   SEARCH BOX
+=========================== */
+
+.search-section{
+
+    margin-top:-70px;
+
+    position:relative;
+
+    z-index:10;
+
+}
+
+.search-box{
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.15);
+
+}
+
+.form-control,
+.form-select{
+
+    height:55px;
+
+    border-radius:15px;
+
+}
+
+.form-control:focus,
+.form-select:focus{
+
+    border-color:#FF6B00;
+
+    box-shadow:none;
+
+}
+/* =====================================
+   STATISTICS SECTION
+===================================== */
+
+.stats-section{
+    padding:80px 0;
+    background:#fff;
+}
+
+.stat-card{
+    background:#ffffff;
+    border-radius:20px;
+    padding:35px;
+    text-align:center;
+    transition:0.4s;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.stat-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 20px 40px rgba(255,107,0,0.25);
+}
+
+.stat-card i{
+    font-size:45px;
+    color:#FF6B00;
+    margin-bottom:15px;
+}
+
+.stat-card h2{
+    font-size:40px;
+    font-weight:700;
+    color:#111827;
+}
+
+.stat-card p{
+    color:#666;
+    font-size:18px;
+}
+
+/* =====================================
+   SECTION TITLE
+===================================== */
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title h2{
+    font-size:42px;
+    font-weight:700;
+    color:#111827;
+}
+
+.section-title span{
+    color:#FF6B00;
+}
+
+.section-title p{
+    color:#777;
+    font-size:18px;
+}
+
+/* =====================================
+   CATEGORY CARDS
+===================================== */
+
+.category-card{
+    background:#fff;
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+    transition:.4s;
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    margin-bottom:25px;
+}
+
+.category-card:hover{
+    transform:translateY(-12px);
+    background:#FF6B00;
+    color:white;
+}
+
+.category-card:hover i{
+    color:white;
+}
+
+.category-card i{
+    font-size:55px;
+    color:#FF6B00;
+    margin-bottom:20px;
+}
+
+.category-card h4{
+    font-weight:600;
+}
+
+/* =====================================
+   DESTINATION CARDS
+===================================== */
+
+.destination-card{
+    border:none;
+    border-radius:20px;
+    overflow:hidden;
+    transition:.4s;
+    box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
+
+.destination-card:hover{
+    transform:translateY(-12px);
+}
+
+.destination-card img{
+    height:260px;
+    object-fit:cover;
+    transition:.5s;
+}
+
+.destination-card:hover img{
+    transform:scale(1.1);
+}
+
+.destination-content{
+    padding:25px;
+}
+
+.destination-content h4{
+    font-weight:700;
+}
+
+.destination-content p{
+    color:#666;
+}
+
+.rating{
+    color:#FFC107;
+}
+
+/* =====================================
+   STORY CARDS
+===================================== */
+
+.story-card{
+    position:relative;
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    transition:.5s;
+    cursor:pointer;
+    box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
+
+.story-card img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+}
+
+.story-content{
+    padding:25px;
+}
+
+.story-card:hover{
+    transform:scale(1.04);
+}
+
+.story-btn{
+    border:none;
+    background:#FF6B00;
+    color:white;
+    padding:10px 20px;
+    border-radius:30px;
+}
+
+/* =====================================
+   INDUSTRIAL VISIT
+===================================== */
+
+.industry-card{
+    background:white;
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+    transition:.4s;
+    box-shadow:0 8px 25px rgba(0,0,0,.1);
+}
+
+.industry-card:hover{
+    transform:translateY(-12px);
+    background:#111827;
+    color:white;
+}
+
+.industry-card:hover i{
+    color:#FFC107;
+}
+
+.industry-card i{
+    font-size:60px;
+    color:#FF6B00;
+    margin-bottom:20px;
+}
+
+/* =====================================
+   BUTTON ANIMATION
+===================================== */
+
+.btn{
+    transition:.4s;
+}
+
+.btn:hover{
+    transform:translateY(-5px);
+}
+
+/* =====================================
+   IMAGE HOVER
+===================================== */
+
+img{
+    transition:.5s;
+}
+
+img:hover{
+    transform:scale(1.03);
+}
+/* =====================================
+   DARK MODE
+===================================== */
+
+body.dark-mode{
+    background:#111827;
+    color:#ffffff;
+}
+
+body.dark-mode .navbar{
+    background:rgba(17,24,39,0.9);
+}
+
+body.dark-mode .search-box,
+body.dark-mode .stat-card,
+body.dark-mode .category-card,
+body.dark-mode .destination-card,
+body.dark-mode .story-card,
+body.dark-mode .industry-card{
+    background:#1f2937;
+    color:#ffffff;
+}
+
+body.dark-mode .section-title h2,
+body.dark-mode .destination-content h4{
+    color:#ffffff;
+}
+
+body.dark-mode p{
+    color:#d1d5db;
+}
+
+/* =====================================
+   FLOATING AI BUTTON
+===================================== */
+
+.ai-button{
+    position:fixed;
+    bottom:30px;
+    right:30px;
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:#FF6B00;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:30px;
+    box-shadow:0 15px 35px rgba(255,107,0,.4);
+    cursor:pointer;
+    z-index:9999;
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+
+    0%{
+        box-shadow:0 0 0 0 rgba(255,107,0,.6);
+    }
+
+    70%{
+        box-shadow:0 0 0 18px rgba(255,107,0,0);
+    }
+
+    100%{
+        box-shadow:0 0 0 0 rgba(255,107,0,0);
+    }
+
+}
+
+/* =====================================
+   SCROLL TO TOP
+===================================== */
+
+#topBtn{
+
+    position:fixed;
+
+    bottom:120px;
+
+    right:30px;
+
+    width:55px;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#FFC107;
+
+    color:#111827;
+
+    display:none;
+
+    cursor:pointer;
+
+    font-size:22px;
+
+    z-index:9999;
+
+    transition:.3s;
+
+}
+
+#topBtn:hover{
+
+    transform:translateY(-5px);
+
+}
+
+/* =====================================
+   FOOTER
+===================================== */
+
+.footer{
+
+    background:#111827;
+
+    color:white;
+
+    padding:80px 0 30px;
+
+}
+
+.footer h4{
+
+    color:#FFC107;
+
+    margin-bottom:20px;
+
+}
+
+.footer a{
+
+    color:#d1d5db;
+
+    text-decoration:none;
+
+    display:block;
+
+    margin-bottom:10px;
+
+    transition:.3s;
+
+}
+
+.footer a:hover{
+
+    color:#FF6B00;
+
+    margin-left:8px;
+
+}
+
+.footer-bottom{
+
+    border-top:1px solid rgba(255,255,255,.1);
+
+    margin-top:40px;
+
+    padding-top:20px;
+
+    text-align:center;
+
+}
+
+/* =====================================
+   LOADING SCREEN
+===================================== */
+
+.loader{
+
+    position:fixed;
+
+    width:100%;
+
+    height:100%;
+
+    background:#111827;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-direction:column;
+
+    z-index:10000;
+
+}
+
+.loader img{
+
+    width:90px;
+
+    animation:rotateLogo 2s linear infinite;
+
+}
+
+@keyframes rotateLogo{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+/* =====================================
+   GLASSMORPHISM
+===================================== */
+
+.glass{
+
+    background:rgba(255,255,255,.15);
+
+    backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,.2);
+
+    border-radius:20px;
+
+}
+
+/* =====================================
+   RESPONSIVE DESIGN
+===================================== */
+
+@media(max-width:992px){
+
+.hero-title{
+
+font-size:45px;
+
+text-align:center;
+
+}
+
+.hero-text{
+
+text-align:center;
+
+font-size:18px;
+
+}
+
+.weather-card{
+
+margin-top:40px;
+
+}
+
+.search-section{
+
+margin-top:-20px;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.hero{
+
+height:auto;
+
+padding:120px 0;
+
+}
+
+.hero-title{
+
+font-size:35px;
+
+}
+
+.section-title h2{
+
+font-size:30px;
+
+}
+
+.search-box{
+
+padding:20px;
+
+}
+
+.category-card{
+
+margin-bottom:20px;
+
+}
+
+}
+
+/* =====================================
+   SCROLL ANIMATION
+===================================== */
+
+.fade-up{
+
+    opacity:0;
+
+    transform:translateY(50px);
+
+    transition:1s;
+
+}
+
+.fade-up.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+/* ================= NAVBAR ================= */
+
+.custom-navbar{
+
+background:rgba(0,0,0,0.30);
+
+backdrop-filter:blur(15px);
+
+transition:.4s;
+
+padding:15px 0;
+
+}
+
+.custom-navbar.scrolled{
+
+background:#111;
+
+box-shadow:0 10px 30px rgba(0,0,0,.4);
+
+}
+
+.logo-text{
+
+color:white;
+
+font-size:28px;
+
+font-weight:700;
+
+margin-left:8px;
+
+}
+
+.nav-link{
+
+color:white!important;
+
+font-weight:500;
+
+margin:0 10px;
+
+position:relative;
+
+}
+
+.nav-link::after{
+
+content:"";
+
+position:absolute;
+
+left:0;
+
+bottom:-5px;
+
+width:0%;
+
+height:2px;
+
+background:#FFC107;
+
+transition:.4s;
+
+}
+
+.nav-link:hover::after{
+
+width:100%;
+
+}
+
+.language-select{
+
+width:140px;
+
+border-radius:25px;
+
+}
+
+.icon-btn{
+
+width:42px;
+
+height:42px;
+
+border:none;
+
+border-radius:50%;
+
+background:white;
+
+transition:.3s;
+
+}
+
+.icon-btn:hover{
+
+transform:translateY(-4px);
+
+background:#FFC107;
+
+}
+
+.btn-warning{
+
+border-radius:25px;
+
+padding:8px 22px;
+
+font-weight:600;
+
+}
+
+.btn-outline-light{
+
+border-radius:25px;
+
+padding:8px 22px;
+
+}
+
+@media(max-width:991px){
+
+.custom-navbar{
+
+background:#111;
+
+}
+
+.navbar-nav{
+
+text-align:center;
+
+margin-top:20px;
+
+}
+
+.language-select{
+
+margin-top:15px;
+
+width:100%;
+
+}
+
+}
+/* ================= HOME PAGE STEP 2 ================= */
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title h2{
+    font-size:42px;
+    font-weight:700;
+    color:#222;
+}
+
+.section-title span{
+    color:#ff9800;
+}
+
+.section-title p{
+    color:#666;
+    font-size:18px;
+}
+
+/* Statistics */
+
+.stats-section{
+    padding:80px 0;
+    background:#f8f9fa;
+}
+
+.stat-card{
+    background:#fff;
+    border-radius:20px;
+    padding:35px;
+    text-align:center;
+    transition:.4s;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.stat-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 20px 35px rgba(0,0,0,.18);
+}
+
+.stat-card i{
+    font-size:45px;
+    color:#ff9800;
+    margin-bottom:15px;
+}
+
+.stat-card h2{
+    font-size:36px;
+    font-weight:700;
+}
+
+.stat-card p{
+    color:#777;
+}
+
+/* Categories */
+
+.category-card{
+    background:#fff;
+    border-radius:18px;
+    padding:35px;
+    text-align:center;
+    margin-bottom:25px;
+    transition:.4s;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.category-card:hover{
+    background:#ff9800;
+    color:#fff;
+    transform:translateY(-8px);
+}
+
+.category-card:hover i{
+    color:#fff;
+}
+
+.category-card i{
+    font-size:45px;
+    color:#ff9800;
+    margin-bottom:15px;
+}
+
+/* Destination Cards */
+
+.destination-card{
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    transition:.4s;
+    box-shadow:0 12px 25px rgba(0,0,0,.10);
+}
+
+.destination-card:hover{
+    transform:translateY(-10px);
+}
+
+.destination-card img{
+    width:100%;
+    height:260px;
+    object-fit:cover;
+}
+
+.destination-content{
+    padding:25px;
+}
+
+.destination-content h4{
+    font-weight:700;
+}
+
+.rating{
+    color:#FFC107;
+    font-size:18px;
+    margin:10px 0;
+}
+
+/* ================= LOGIN & REGISTER ================= */
+
+.login-page{
+
+background:url("../images/hampi_bg.jpg");
+
+background-size:cover;
+
+background-position:center;
+
+background-repeat:no-repeat;
+
+height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+.login-overlay{
+
+width:100%;
+
+height:100vh;
+
+background:rgba(0,0,0,.45);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+.login-card{
+
+width:420px;
+
+background:rgba(255,255,255,.15);
+
+backdrop-filter:blur(18px);
+
+padding:40px;
+
+border-radius:20px;
+
+box-shadow:0 10px 30px rgba(0,0,0,.35);
+
+color:white;
+
+}
+
+.login-card h2{
+
+text-align:center;
+
+font-weight:700;
+
+}
+
+.login-card p{
+
+text-align:center;
+
+margin-bottom:25px;
+
+}
+
+.form-control{
+
+height:50px;
+
+border-radius:12px;
+
+}
+
+.btn-warning{
+
+height:50px;
+
+font-size:18px;
+
+font-weight:600;
+
+border-radius:12px;
+
+}
+
+.login-card a{
+
+color:#FFC107;
+
+text-decoration:none;
+
+font-weight:600;
+
+}
+
+/* =========================
+   AI STORY
+========================= */
+
+.story-section {
+    background: #f8f9fa;
+}
+
+.story-card {
+    max-width: 900px;
+    margin: auto;
+    padding: 40px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.story-icon {
+    font-size: 45px;
+}
+
+.story-card h2 {
+    margin-top: 10px;
+    font-weight: 700;
+}
+
+.story-card p {
+    line-height: 1.8;
+    color: #555;
+}
+
+.story-content {
+    background: #fff8e1;
+    padding: 25px;
+    border-radius: 15px;
+    border-left: 5px solid #ffc107;
+}
+/* ================= SERVICE CARDS ================= */
+
+.service-card {
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    text-align: center;
+
+    height: 100%;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+
+    border: 1px solid #f3eee9;
+
+    transition: 0.3s;
+}
+
+.service-card:hover {
+
+    transform: translateY(-7px);
+
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+.service-icon {
+
+    font-size: 45px;
+
+    margin-bottom: 15px;
+}
+
+.service-card h3 {
+
+    font-size: 22px;
+
+    font-weight: 750;
+
+    margin-bottom: 12px;
+}
+
+.service-card p {
+
+    color: #777;
+
+    line-height: 1.6;
+
+    font-size: 14px;
+
+    min-height: 68px;
+}
+
+.service-btn {
+
+    display: inline-block;
+
+    background: #f47b20;
+
+    color: white;
+
+    text-decoration: none;
+
+    padding: 11px 20px;
+
+    border-radius: 10px;
+
+    font-weight: 700;
+
+    margin-top: 10px;
+
+    transition: 0.25s;
+}
+
+.service-btn:hover {
+
+    background: #d9610d;
+
+    color: white;
+}
+
+/* ==========================================================
+   YATRASATHI VOICE + SMART ASSISTANT
+   Shared styles (home.html also contains a safe local copy)
+========================================================== */
+
+.ys-assistant {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 10020;
+    font-family: "Poppins", sans-serif;
+}
+
+.ys-assistant-panel {
+    position: absolute;
+    right: 0;
+    bottom: 82px;
+    width: 320px;
+    padding: 16px;
+    border: 1px solid rgba(242, 140, 40, 0.18);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.20);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(18px) scale(0.96);
+    transform-origin: bottom right;
+    transition: 0.28s ease;
+}
+
+.ys-assistant-panel.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.ys-assistant-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 13px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.ys-assistant-logo {
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: #fff;
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+    box-shadow: 0 8px 20px rgba(245, 158, 11, 0.28);
+}
+
+.ys-assistant-header h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #222;
+}
+
+.ys-assistant-header p {
+    margin: 2px 0 0;
+    font-size: 11px;
+    color: #777;
+}
+
+.ys-language-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    background: #fff7ed;
+}
+
+.ys-language-box i {
+    color: #f28c28;
+    font-size: 18px;
+}
+
+.ys-language-box select {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 10px;
+    border: 1px solid #fed7aa;
+    border-radius: 9px;
+    background: #fff;
+    color: #333;
+    outline: none;
+    font-family: inherit;
+    font-size: 13px;
+}
+
+.ys-action-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.ys-action-btn {
+    min-height: 72px;
+    border: 1px solid #f2f2f2;
+    border-radius: 13px;
+    background: #fff;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    transition: 0.25s ease;
+}
+
+.ys-action-btn i {
+    color: #f28c28;
+    font-size: 18px;
+}
+
+.ys-action-btn:hover {
+    transform: translateY(-2px);
+    border-color: #fed7aa;
+    background: #fff7ed;
+    color: #d96f00;
+}
+
+.ys-voice-status {
+    min-height: 18px;
+    margin: 10px 3px 0;
+    color: #777;
+    font-size: 11px;
+    text-align: center;
+}
+
+.ys-assistant-button {
+    position: relative;
+    width: 66px;
+    height: 66px;
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+    box-shadow: 0 10px 28px rgba(245, 158, 11, 0.42);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    font-size: 25px;
+    transition: 0.28s ease;
+    isolation: isolate;
+}
+
+.ys-assistant-button::before,
+.ys-assistant-button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: rgba(245, 158, 11, 0.32);
+    z-index: -1;
+    animation: ysAssistantPulse 2.2s infinite;
+}
+
+.ys-assistant-button::after {
+    animation-delay: 1.1s;
+}
+
+.ys-assistant-button:hover {
+    transform: translateY(-4px) scale(1.05);
+}
+
+.ys-assistant-button.listening {
+    background: linear-gradient(135deg, #ef4444, #f97316);
+    animation: ysListening 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes ysAssistantPulse {
+    0% { transform: scale(1); opacity: 0.65; }
+    75%, 100% { transform: scale(1.45); opacity: 0; }
+}
+
+@keyframes ysListening {
+    from { transform: scale(1); }
+    to { transform: scale(1.08); }
+}
+
+@media (max-width: 600px) {
+    .ys-assistant { right: 15px; bottom: 16px; }
+    .ys-assistant-panel { width: min(310px, calc(100vw - 30px)); bottom: 74px; }
+    .ys-assistant-button { width: 58px; height: 58px; font-size: 22px; }
+}
+

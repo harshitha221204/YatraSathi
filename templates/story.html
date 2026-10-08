@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Stories | YatraSathi</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f5f7fa;
+            color: #222;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.90);
+            padding: 15px 5%;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .navbar-brand i {
+            margin-right: 8px;
+        }
+
+        .nav-link {
+            color: #ddd !important;
+            margin: 0 8px;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: #ffc107 !important;
+        }
+
+        /* HERO */
+
+        .story-hero {
+            min-height: 55vh;
+
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.65),
+                    rgba(0, 0, 0, 0.65)
+                ),
+                url("{{ url_for('static', filename='images/hampi_bg.jpg') }}");
+
+            background-size: cover;
+            background-position: center;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+            color: white;
+
+            padding: 80px 20px;
+        }
+
+        .story-hero-content {
+            max-width: 850px;
+        }
+
+        .story-hero h1 {
+            font-size: 52px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .story-hero h1 span {
+            color: #ffc107;
+        }
+
+        .story-hero p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #eee;
+        }
+
+        .ai-badge {
+            display: inline-block;
+            background: rgba(255, 193, 7, 0.15);
+            border: 1px solid #ffc107;
+            color: #ffc107;
+            padding: 8px 18px;
+            border-radius: 30px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* SECTION */
+
+        .stories-section {
+            padding: 70px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            font-weight: 700;
+        }
+
+        .section-title p {
+            color: #777;
+            margin-top: 10px;
+        }
+
+        /* STORY CARD */
+
+        .story-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 100%;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transition: 0.35s ease;
+        }
+
+        .story-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .story-image {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+        }
+
+        .story-content {
+            padding: 25px;
+        }
+
+        .story-category {
+            color: #e09b00;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .story-content h3 {
+            font-size: 23px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .story-content p {
+            color: #666;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .story-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 18px;
+            background: #111;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .story-btn:hover {
+            background: #ffc107;
+            color: #111;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #111;
+            color: #bbb;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 30px;
+        }
+
+        footer strong {
+            color: white;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 768px) {
+
+            .story-hero h1 {
+                font-size: 36px;
+            }
+
+            .story-hero p {
+                font-size: 15px;
+            }
+
+            .section-title h2 {
+                font-size: 28px;
+            }
+        }
+
+
+        .ai-story-btn {
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 5px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 10px;
+    background: #ffc107;
+    color: #111;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.ai-story-btn:hover {
+    background: #111;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.modal-content {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.modal-header {
+    background: #111;
+    color: white;
+    padding: 20px 25px;
+}
+
+.modal-title {
+    font-weight: 700;
+}
+
+.modal-title i {
+    color: #ffc107;
+    margin-right: 8px;
+}
+
+.modal-body {
+    padding: 30px;
+    line-height: 1.8;
+    color: #444;
+}
+
+#storyDestination {
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+#generatedStory {
+    font-size: 15px;
+}
+
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar navbar-expand-lg">
+
+        <div class="container-fluid">
+
+            <a class="navbar-brand" href="{{ url_for('home') }}">
+                <i class="fa-solid fa-route"></i>
+                YatraSathi
+            </a>
+
+            <button
+                class="navbar-toggler bg-light"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#storyNavbar">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div
+                class="collapse navbar-collapse"
+                id="storyNavbar">
+
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            href="{{ url_for('home') }}">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            href="{{ url_for('explore') }}">
+                            Explore Karnataka
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link active"
+                            href="{{ url_for('story') }}">
+                            AI Story
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            href="{{ url_for('planner') }}">
+                            Plan Trip
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            href="{{ url_for('login') }}">
+                            Login
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+
+    <section class="story-hero">
+
+        <div class="story-hero-content">
+
+            <div class="ai-badge">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                YatraSathi AI
+            </div>
+
+            <h1>
+                Discover Karnataka
+                <span>Through Stories</span>
+            </h1>
+
+            <p>
+                Travel beyond places and discover the history,
+                culture, legends and fascinating stories behind
+                Karnataka's most beautiful destinations.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- STORIES -->
+
+    <section class="stories-section">
+
+        <div class="section-title">
+
+            <h2>
+                <i class="fa-solid fa-book-open"></i>
+                Explore Destination Stories
+            </h2>
+
+            <p>
+                Every destination has a story waiting to be discovered.
+            </p>
+
+        </div>
+
+
+        <div class="container-fluid">
+
+            <div class="row g-4">
+
+                {% for name, story in stories.items() %}
+
+<div class="col-lg-4 col-md-6">
+
+    <div class="story-card">
+
+        <img
+            src="{{ url_for(
+                'static',
+                filename='images/destination' + story.image
+            ) }}"
+            class="story-image"
+            alt="{{ name }}"
+            onerror="this.style.display='none';"
+        >
+
+        <div class="story-content">
+
+            <div class="story-category">
+                {{ story.category }}
+            </div>
+
+            <h3>
+                {{ story.title }}
+            </h3>
+
+            <p>
+                {{ story.short_story }}
+            </p>
+            <button
+    type="button"
+    class="ai-story-btn"
+    onclick="generateStory('{{ name|e }}')">
+
+    <i class="fa-solid fa-wand-magic-sparkles"></i>
+    Generate AI Story
+
+</button>
+
+            <a
+                href="{{ url_for(
+                    'place_details',
+                    place_name=name
+                ) }}"
+                class="story-btn"
+            >
+                Read Story
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+
+                <!-- HAMPI -->
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="story-card">
+
+                        <img
+                            src="{{ url_for(
+                                'static',
+                                filename='images/destination/hampi.jpg'
+                            ) }}"
+                            class="story-image"
+                            alt="Hampi"
+                            onerror="this.style.display='none';">
+
+                        <div class="story-content">
+
+                            <div class="story-category">
+                                Heritage
+                            </div>
+
+                            <h3>
+                                The Lost City of Hampi
+                            </h3>
+
+                            <p>
+                                Discover the fascinating story of
+                                Hampi, its magnificent ruins, ancient
+                                temples and the legacy of the
+                                Vijayanagara Empire.
+                            </p>
+
+                            <a
+                                href="{{ url_for(
+                                    'place_details',
+                                    place_name='Hampi'
+                                ) }}"
+                                class="story-btn">
+
+                                Read Story
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MYSORE -->
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="story-card">
+
+                        <img
+                            src="{{ url_for(
+                                'static',
+                                filename='images/destination/mysore.jpg'
+                            ) }}"
+                            class="story-image"
+                            alt="Mysore Palace"
+                            onerror="this.style.display='none';">
+
+                        <div class="story-content">
+
+                            <div class="story-category">
+                                Royal Heritage
+                            </div>
+
+                            <h3>
+                                The Royal Story of Mysuru
+                            </h3>
+
+                            <p>
+                                Step into the world of royal heritage
+                                and discover the history, architecture
+                                and traditions surrounding Mysuru.
+                            </p>
+
+                            <a
+                                href="{{ url_for(
+                                    'place_details',
+                                    place_name='Mysuru Palace'
+                                ) }}"
+                                class="story-btn">
+
+                                Read Story
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- COORG -->
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="story-card">
+
+                        <img
+                            src="{{ url_for(
+                                'static',
+                                filename='images/destination/coorg.jpg'
+                            ) }}"
+                            class="story-image"
+                            alt="Coorg"
+                            onerror="this.style.display='none';">
+
+                        <div class="story-content">
+
+                            <div class="story-category">
+                                Nature & Culture
+                            </div>
+
+                            <h3>
+                                The Green Hills of Coorg
+                            </h3>
+
+                            <p>
+                                Explore the beautiful landscapes,
+                                coffee plantations and unique culture
+                                that make Coorg special.
+                            </p>
+
+                            <a
+                                href="{{ url_for(
+                                    'place_details',
+                                    place_name='Coorg'
+                                ) }}"
+                                class="story-btn">
+
+                                Read Story
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            © 2026 <strong>YatraSathi</strong>.
+            Explore Karnataka. Experience the Story.
+        </p>
+
+    </footer>
+
+
+
+
+<div
+    class="modal fade"
+    id="storyModal"
+    tabindex="-1"
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    YatraSathi AI Story
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <h3 id="storyDestination"></h3>
+
+                <div
+                    id="storyLoading"
+                    class="text-center"
+                    style="display:none;">
+
+                    <div
+                        class="spinner-border"
+                        role="status">
+                    </div>
+
+                    <p class="mt-3">
+                        YatraSathi AI is creating your story...
+                    </p>
+
+                </div>
+
+                <div
+                    id="generatedStory"
+                    style="white-space: pre-line;">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+async function generateStory(destination) {
+
+    const modalElement =
+        document.getElementById('storyModal');
+
+    const modal =
+        new bootstrap.Modal(modalElement);
+
+    const destinationElement =
+        document.getElementById('storyDestination');
+
+    const storyElement =
+        document.getElementById('generatedStory');
+
+    const loadingElement =
+        document.getElementById('storyLoading');
+
+    destinationElement.textContent = destination;
+
+    storyElement.textContent = '';
+
+    loadingElement.style.display = 'block';
+
+    modal.show();
+
+    try {
+
+        const response = await fetch(
+            '/generate-story',
+            {
+                method: 'POST',
+
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                body: JSON.stringify({
+                    destination: destination
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.story || 'Story generation failed.'
+            );
+        }
+
+        storyElement.textContent =
+            data.story;
+
+    } catch (error) {
+
+        storyElement.textContent =
+            'Sorry, I could not generate the story right now.';
+
+        console.error(error);
+
+    } finally {
+
+        loadingElement.style.display = 'none';
+
+    }
+}
+
+</script>
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+</html>

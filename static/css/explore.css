@@ -1,0 +1,360 @@
+/* ==========================================
+        EXPLORE PAGE - YATRASATHI
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f5f7fa;
+}
+
+/* =========================
+        NAVBAR
+========================= */
+
+.custom-navbar{
+
+    background:rgba(0,0,0,.75);
+
+    backdrop-filter:blur(12px);
+
+    transition:.4s;
+
+    padding:15px 0;
+
+}
+
+.custom-navbar .nav-link{
+
+    color:white;
+
+    margin-left:15px;
+
+    font-weight:500;
+
+}
+
+.custom-navbar .nav-link:hover{
+
+    color:#ffc107;
+
+}
+
+.navbar-brand{
+
+    font-size:28px;
+
+}
+
+/* =========================
+        HERO BANNER
+========================= */
+
+.explore-banner{
+
+    background:url("../images/hampi_bg.jpg") center center/cover no-repeat;
+
+    height:60vh;
+
+    position:relative;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.banner-overlay{
+
+    width:100%;
+
+    height:100%;
+
+    background:rgba(0,0,0,.55);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.banner-overlay h1{
+
+    color:white;
+
+    font-size:60px;
+
+    font-weight:700;
+
+}
+
+.banner-overlay p{
+
+    color:white;
+
+    font-size:22px;
+
+    margin-top:20px;
+
+}
+
+/* =========================
+        SEARCH BOX
+========================= */
+
+.search-section{
+
+    margin-top:-60px;
+
+    position:relative;
+
+    z-index:100;
+
+}
+
+.search-box{
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:18px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.15);
+
+}
+
+.search-box input,
+
+.search-box select{
+
+    height:55px;
+
+    border-radius:12px;
+
+}
+
+/* =========================
+      SECTION TITLE
+========================= */
+
+.section-title{
+
+    text-align:center;
+
+    margin-bottom:50px;
+
+}
+
+.section-title h2{
+
+    font-size:42px;
+
+    font-weight:700;
+
+}
+
+.section-title span{
+
+    color:#ff9800;
+
+}
+
+.section-title p{
+
+    color:#666;
+
+}
+
+/* =========================
+      DESTINATION CARD
+========================= */
+
+.destination-card{
+
+    background:white;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    transition:.4s;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.10);
+
+    height:100%;
+
+}
+
+.destination-card:hover{
+
+    transform:translateY(-12px);
+
+    box-shadow:0 25px 40px rgba(0,0,0,.18);
+
+}
+
+.destination-card img{
+
+    width:100%;
+
+    height:240px;
+
+    object-fit:cover;
+
+    transition:.4s;
+
+}
+
+.destination-card:hover img{
+
+    transform:scale(1.05);
+
+}
+
+.destination-content{
+
+    padding:25px;
+
+}
+
+.destination-content h4{
+
+    font-size:26px;
+
+    font-weight:700;
+
+}
+
+.destination-content p{
+
+    color:#666;
+
+    margin-bottom:10px;
+
+}
+
+.rating{
+
+    color:#FFC107;
+
+    font-size:18px;
+
+    margin-bottom:15px;
+
+}
+
+/* =========================
+      BUTTONS
+========================= */
+
+.btn-warning{
+
+    border-radius:30px;
+
+    font-weight:600;
+
+}
+
+.btn-outline-warning{
+
+    border-radius:30px;
+
+}
+
+.btn-outline-dark{
+
+    border-radius:30px;
+
+}
+
+/* =========================
+      FOOTER
+========================= */
+
+footer{
+
+    margin-top:80px;
+
+}
+
+footer h5{
+
+    margin-bottom:20px;
+
+}
+
+footer a:hover{
+
+    color:#ffc107 !important;
+
+}
+
+/* =========================
+        SCROLLBAR
+========================= */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#ff9800;
+
+    border-radius:10px;
+
+}
+
+/* =========================
+        RESPONSIVE
+========================= */
+
+@media(max-width:992px){
+
+.banner-overlay h1{
+
+font-size:42px;
+
+}
+
+.banner-overlay p{
+
+font-size:18px;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.search-box{
+
+padding:20px;
+
+}
+
+.destination-card{
+
+margin-bottom:25px;
+
+}
+
+.banner-overlay h1{
+
+font-size:34px;
+
+}
+
+}

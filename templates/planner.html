@@ -1,0 +1,3600 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Plan Your Trip | YatraSathi</title>
+
+
+    <style>
+
+        :root {
+            --orange: #f28c28;
+            --dark-orange: #d96f00;
+            --light-orange: #fff0df;
+            --background: #fff8f0;
+            --dark: #333333;
+            --border: #f1d3b3;
+            --green: #198754;
+            --dark-green: #157347;
+        }
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: var(--background);
+            color: var(--dark);
+        }
+        /* ==================================================
+   LIVE WEATHER
+================================================== */
+
+.weather-card {
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff7ed,
+            #ffffff
+        );
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        20px;
+
+    padding:
+        28px;
+
+    box-shadow:
+        0 7px 25px
+        rgba(0, 0, 0, 0.08);
+}
+
+
+.weather-header {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
+
+    margin-bottom:
+        20px;
+}
+
+
+.weather-header h2 {
+
+    margin:
+        5px 0 0;
+
+    color:
+        #333;
+}
+
+
+.weather-label {
+
+    color:
+        var(--orange);
+
+    font-size:
+        12px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1px;
+}
+
+
+.refresh-weather-btn {
+
+    border:
+        none;
+
+    background:
+        var(--orange);
+
+    color:
+        white;
+
+    padding:
+        9px 14px;
+
+    border-radius:
+        9px;
+
+    font-weight:
+        700;
+
+    cursor:
+        pointer;
+
+    transition:
+        0.3s;
+}
+
+
+.refresh-weather-btn:hover {
+
+    background:
+        var(--dark-orange);
+
+    transform:
+        translateY(-2px);
+}
+
+
+.weather-loading {
+
+    padding:
+        20px;
+
+    text-align:
+        center;
+
+    color:
+        #777;
+}
+
+
+.weather-main {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        18px;
+
+    margin-bottom:
+        20px;
+}
+
+
+.weather-icon {
+
+    width:
+        75px;
+
+    height:
+        75px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    background:
+        var(--light-orange);
+
+    border-radius:
+        50%;
+
+    font-size:
+        38px;
+}
+
+
+.temperature {
+
+    font-size:
+        38px;
+
+    font-weight:
+        800;
+
+    color:
+        var(--dark-orange);
+}
+
+
+.weather-description {
+
+    color:
+        #666;
+
+    text-transform:
+        capitalize;
+
+    font-weight:
+        600;
+}
+
+
+.weather-details {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap:
+        12px;
+}
+
+
+.weather-detail {
+
+    background:
+        white;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        12px;
+
+    padding:
+        14px;
+
+    text-align:
+        center;
+}
+
+
+.weather-detail span {
+
+    display:
+        block;
+
+    color:
+        #777;
+
+    font-size:
+        12px;
+
+    margin-bottom:
+        5px;
+}
+
+
+.weather-detail strong {
+
+    color:
+        #333;
+}
+
+
+.weather-error {
+
+    background:
+        #fee2e2;
+
+    color:
+        #b91c1c;
+
+    padding:
+        12px;
+
+    border-radius:
+        10px;
+}
+
+
+@media(max-width: 650px) {
+
+    .weather-header {
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+    }
+
+
+    .weather-details {
+
+        grid-template-columns:
+            1fr;
+    }
+
+}
+
+        /* ==================================================
+           NAVBAR
+        ================================================== */
+
+        .navbar {
+            background: white;
+            padding: 15px 30px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            box-shadow:
+                0 2px 15px
+                rgba(0, 0, 0, 0.08);
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+
+        .navbar-brand {
+            color: var(--orange);
+            font-size: 25px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+
+        .navbar-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+
+        .navbar-links a:hover,
+        .navbar-links a.active {
+            color: var(--orange);
+        }
+
+
+        #languageSelector {
+            padding: 8px 10px;
+            border: 1px solid var(--orange);
+            border-radius: 8px;
+            background: white;
+        }
+
+
+        /* ==================================================
+           HERO
+        ================================================== */
+
+        .planner-hero {
+
+            min-height: 370px;
+
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.60),
+                    rgba(0, 0, 0, 0.60)
+                ),
+                url(
+                    "{{ url_for('static', filename='images/hampi_bg.jpg') }}"
+                );
+
+            background-size: cover;
+            background-position: center;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            color: white;
+
+            padding: 60px 20px;
+        }
+
+
+        .planner-hero h1 {
+            font-size: 46px;
+            margin: 10px 0;
+        }
+
+
+        .planner-hero p {
+            max-width: 700px;
+            margin: auto;
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+
+        .orange-badge {
+            display: inline-block;
+            background: var(--orange);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+           MAIN CONTAINER
+        ================================================== */
+
+        .planner-container {
+            max-width: 1150px;
+            margin: -45px auto 60px;
+            position: relative;
+            z-index: 5;
+            padding: 0 15px;
+        }
+
+
+        .planner-card,
+        .result-card,
+        .budget-box {
+
+            background: white;
+
+            border-radius: 20px;
+
+            border: 1px solid var(--border);
+
+            box-shadow:
+                0 7px 25px
+                rgba(0, 0, 0, 0.08);
+
+            padding: 30px;
+        }
+
+
+        .section-title {
+            color: var(--orange);
+            font-weight: 800;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+
+        /* ==================================================
+           ERROR
+        ================================================== */
+
+        .error-message {
+            background: #fee2e2;
+            color: #b91c1c;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+
+        /* ==================================================
+           FORM
+        ================================================== */
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+
+        .form-label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+
+        .form-control,
+        .form-select {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            border: 1px solid #ddd;
+
+            font-size: 15px;
+
+            background: white;
+
+            outline: none;
+        }
+
+
+        .form-control:focus,
+        .form-select:focus {
+
+            border-color: var(--orange);
+
+            box-shadow:
+                0 0 0
+                3px
+                rgba(242, 140, 40, 0.12);
+        }
+
+
+        .form-row {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+        }
+
+
+        /* ==================================================
+           CURRENT LOCATION
+        ================================================== */
+
+        .location-wrapper {
+            margin-top: 12px;
+        }
+
+
+        .location-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            border: none;
+
+            background: var(--green);
+
+            color: white;
+
+            padding: 11px 18px;
+
+            border-radius: 10px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .location-btn:hover {
+            background: var(--dark-green);
+            transform: translateY(-2px);
+        }
+
+
+        .location-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+
+        .location-status {
+            margin-top: 9px;
+            font-size: 13px;
+            color: #666;
+        }
+
+
+        .location-success {
+            color: var(--green);
+            font-weight: 600;
+        }
+
+
+        .location-error {
+            color: #b91c1c;
+            font-weight: 600;
+        }
+        /* ==================================================
+   FULL DAY ROUTE BUTTON
+================================================== */
+
+.day-route-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #198754,
+            #20a464
+        );
+
+    color: white;
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 10px 17px;
+
+    margin-bottom: 18px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+    box-shadow:
+        0 5px 15px
+        rgba(25, 135, 84, 0.20);
+}
+
+
+.day-route-btn:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(25, 135, 84, 0.30);
+}
+
+        /* ==================================================
+           INTERESTS
+        ================================================== */
+
+        .interest-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 10px;
+        }
+
+
+        .interest-box {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            background: #fffaf5;
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+
+            padding: 12px;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .interest-box:hover {
+            background: var(--light-orange);
+            border-color: var(--orange);
+            transform: translateY(-2px);
+        }
+
+
+        .interest-box input {
+            accent-color: var(--orange);
+        }
+
+
+        /* ==================================================
+           GENERATE BUTTON
+        ================================================== */
+
+        .button-center {
+            text-align: center;
+            margin-top: 28px;
+        }
+
+
+        .btn-orange {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            background: var(--orange);
+
+            color: white;
+
+            border: none;
+
+            border-radius: 12px;
+
+            padding: 13px 28px;
+
+            font-weight: 700;
+
+            font-size: 15px;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            transition: 0.3s;
+        }
+
+
+        .btn-orange:hover {
+
+            background: var(--dark-orange);
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 7px 18px
+                rgba(242, 140, 40, 0.30);
+        }
+
+
+        /* ==================================================
+           RESULT
+        ================================================== */
+
+        .result-section {
+            margin-top: 30px;
+        }
+
+
+        /* ==================================================
+           TRIP SUMMARY
+        ================================================== */
+
+        .trip-summary {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 12px;
+        }
+
+
+        .summary-box {
+
+            background: #fffaf5;
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            padding: 15px;
+
+            text-align: center;
+        }
+
+
+        .summary-icon {
+            font-size: 22px;
+            margin-bottom: 7px;
+        }
+
+
+        .summary-box small {
+            display: block;
+            color: #777;
+            margin-bottom: 4px;
+        }
+
+
+        .summary-box strong {
+            font-size: 14px;
+        }
+
+
+        /* ==================================================
+           DAY CARD
+        ================================================== */
+
+        .day-card {
+
+            border-left:
+                5px solid
+                var(--orange);
+
+            border-radius: 14px;
+
+            padding: 20px;
+
+            margin-bottom: 20px;
+
+            background: white;
+
+            box-shadow:
+                0 4px 15px
+                rgba(0, 0, 0, 0.06);
+        }
+
+
+        .day-title {
+            color: var(--dark-orange);
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
+
+
+        /* ==================================================
+           PLACE
+        ================================================== */
+
+        .place-item {
+
+            background: var(--light-orange);
+
+            border-radius: 12px;
+
+            padding: 14px;
+
+            margin-bottom: 12px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            transition: 0.3s;
+        }
+
+
+        .place-item:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 5px 15px
+                rgba(0, 0, 0, 0.08);
+        }
+
+
+        .visit-time {
+
+            min-width: 115px;
+
+            color: var(--dark-orange);
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+
+        .visit-place {
+            flex: 1;
+            font-weight: 700;
+        }
+
+
+        .place-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+
+        /* ==================================================
+           VIEW BUTTON
+        ================================================== */
+
+        .view-place-btn {
+
+            background: var(--orange);
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            padding: 8px 12px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            transition: 0.3s;
+        }
+
+
+        .view-place-btn:hover {
+            background: var(--dark-orange);
+        }
+
+
+        /* ==================================================
+           DIRECTIONS
+        ================================================== */
+
+        .direction-btn {
+
+            background: var(--green);
+
+            color: white;
+
+            border: none;
+
+            border-radius: 8px;
+
+            padding: 8px 12px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .direction-btn:hover {
+
+            background: var(--dark-green);
+
+            transform: translateY(-1px);
+        }
+
+
+        /* ==================================================
+           RECOMMENDED
+        ================================================== */
+
+        .recommended-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+        }
+
+
+        .recommended-card {
+
+            background: var(--light-orange);
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            padding: 17px;
+
+            transition: 0.3s;
+        }
+
+
+        .recommended-card:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 6px 18px
+                rgba(0, 0, 0, 0.08);
+        }
+
+
+        .recommended-name {
+            font-weight: 700;
+            margin-bottom: 13px;
+        }
+
+
+        /* ==================================================
+           BUDGET
+        ================================================== */
+
+        .budget-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            padding: 13px 0;
+
+            border-bottom: 1px solid #eee;
+        }
+
+
+        .budget-value {
+            color: var(--orange);
+            font-weight: 700;
+        }
+
+
+        .remaining {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            background: var(--light-orange);
+
+            color: var(--dark-orange);
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            margin-top: 15px;
+
+            font-weight: 700;
+        }
+
+
+        /* ==================================================
+           FOOTER
+        ================================================== */
+
+        footer {
+
+            background: white;
+
+            border-top: 1px solid var(--border);
+
+            padding: 30px 20px;
+
+            text-align: center;
+        }
+
+
+        footer strong {
+            color: var(--orange);
+        }
+
+
+        /* ==================================================
+           RESPONSIVE
+        ================================================== */
+
+        @media(max-width: 900px) {
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+
+            .interest-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .trip-summary {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .recommended-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media(max-width: 700px) {
+
+            .navbar {
+                padding: 12px 15px;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+
+            .navbar-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+
+            .planner-hero h1 {
+                font-size: 34px;
+            }
+
+
+            .planner-card,
+            .result-card,
+            .budget-box {
+                padding: 20px;
+            }
+
+
+            .place-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+
+            .visit-time {
+                min-width: auto;
+            }
+
+
+            .place-actions {
+                width: 100%;
+            }
+
+
+            .view-place-btn,
+            .direction-btn {
+                flex: 1;
+                text-align: center;
+            }
+
+        }
+
+
+        @media(max-width: 500px) {
+
+            .interest-grid,
+            .trip-summary,
+            .recommended-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ======================================================
+     NAVBAR
+====================================================== -->
+
+<nav class="navbar">
+
+    <a
+        class="navbar-brand"
+        href="{{ url_for('home') }}"
+    >
+        🧭 YatraSathi
+    </a>
+
+
+    <div class="navbar-links">
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+
+        <a href="{{ url_for('explore') }}">
+            Explore Karnataka
+        </a>
+
+
+        <a
+            href="{{ url_for('planner') }}"
+            class="active"
+        >
+            Plan Trip
+        </a>
+
+
+        <a href="{{ url_for('budget') }}">
+            Budget
+        </a>
+
+
+        <select id="languageSelector">
+
+            <option value="en">
+                English
+            </option>
+
+            <option value="hi">
+                हिन्दी
+            </option>
+
+            <option value="kn">
+                ಕನ್ನಡ
+            </option>
+
+        </select>
+
+    </div>
+
+</nav>
+
+
+
+<!-- ======================================================
+     HERO
+====================================================== -->
+
+<section class="planner-hero">
+
+    <div>
+
+        <div class="orange-badge">
+
+            ✨ YatraSathi Smart Planner
+
+        </div>
+
+
+        <h1 data-translate="planner_title">
+
+            Plan Your Perfect Trip
+
+        </h1>
+
+
+        <p data-translate="planner_subtitle">
+
+            Create a personalized Karnataka travel plan
+            based on your destination, budget,
+            interests and current location.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- ======================================================
+     MAIN
+====================================================== -->
+
+<main class="planner-container">
+
+
+    <!-- ==================================================
+         FORM
+    ================================================== -->
+
+    <div class="planner-card">
+
+        <h2 class="section-title">
+
+            🗺️ Plan Your Karnataka Journey
+
+        </h2>
+
+
+        {% if error %}
+
+        <div class="error-message">
+
+            ⚠️ {{ error }}
+
+        </div>
+
+        {% endif %}
+
+
+
+        <form
+            id="plannerForm"
+            method="POST"
+            action="{{ url_for('planner') }}"
+        >
+
+
+            <!-- ==========================================
+                 DESTINATION
+            =========================================== -->
+
+            <div class="form-group">
+
+                <label
+                    class="form-label"
+                    data-translate="destination"
+                >
+                    Destination
+                </label>
+
+
+                <select
+                    name="destination"
+                    class="form-select"
+                    required
+                >
+
+                    <option value="">
+
+                        Select Destination
+
+                    </option>
+
+
+                    {% for destination_name in places.keys() %}
+
+                    <option
+                        value="{{ destination_name }}"
+
+                        {% if destination is defined
+                           and destination == destination_name %}
+
+                        selected
+
+                        {% endif %}
+                    >
+
+                        {{ destination_name }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+
+
+                <!-- ======================================
+                     CURRENT LOCATION
+                ======================================= -->
+
+                <div class="location-wrapper">
+
+                    <button
+                        type="button"
+                        id="locationBtn"
+                        class="location-btn"
+                        onclick="getCurrentLocation()"
+                    >
+
+                        📍 Use My Current Location
+
+                    </button>
+
+
+                    <div
+                        id="locationStatus"
+                        class="location-status"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ==========================================
+                 DAYS / TRAVELERS / BUDGET
+            =========================================== -->
+
+            <div class="form-row">
+
+
+                <div class="form-group">
+
+                    <label class="form-label">
+
+                        📅 Number of Days
+
+                    </label>
+
+
+                    <input
+                        type="number"
+                        name="days"
+                        class="form-control"
+                        min="1"
+                        max="30"
+                        value="{{ days if days is defined else 1 }}"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label class="form-label">
+
+                        👥 Travelers
+
+                    </label>
+
+
+                    <input
+                        type="number"
+                        name="travelers"
+                        class="form-control"
+                        min="1"
+                        max="50"
+                        value="{{ travelers if travelers is defined else 1 }}"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label class="form-label">
+
+                        💰 Total Budget (₹)
+
+                    </label>
+
+
+                    <input
+                        type="number"
+                        name="budget"
+                        class="form-control"
+                        min="500"
+                        value="{{ budget if budget is defined else 5000 }}"
+                        required
+                    >
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ==========================================
+                 TRAVEL STYLE
+            =========================================== -->
+
+            <div class="form-group">
+
+                <label class="form-label">
+
+                    🎒 Travel Style
+
+                </label>
+
+
+                <select
+                    name="style"
+                    class="form-select"
+                >
+
+                    <option value="">
+
+                        Select Travel Style
+
+                    </option>
+
+
+                    <option
+                        value="Budget"
+
+                        {% if style is defined
+                           and style == "Budget" %}
+
+                        selected
+
+                        {% endif %}
+                    >
+                        Budget
+                    </option>
+
+
+                    <option
+                        value="Comfort"
+
+                        {% if style is defined
+                           and style == "Comfort" %}
+
+                        selected
+
+                        {% endif %}
+                    >
+                        Comfort
+                    </option>
+
+
+                    <option
+                        value="Luxury"
+
+                        {% if style is defined
+                           and style == "Luxury" %}
+
+                        selected
+
+                        {% endif %}
+                    >
+                        Luxury
+                    </option>
+
+
+                    <option
+                        value="Adventure"
+
+                        {% if style is defined
+                           and style == "Adventure" %}
+
+                        selected
+
+                        {% endif %}
+                    >
+                        Adventure
+                    </option>
+
+
+                    <option
+                        value="Family"
+
+                        {% if style is defined
+                           and style == "Family" %}
+
+                        selected
+
+                        {% endif %}
+                    >
+                        Family
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- ==========================================
+                 INTERESTS
+            =========================================== -->
+
+            <div class="form-group">
+
+                <label class="form-label">
+
+                    ❤️ Your Interests
+
+                </label>
+
+
+                <div class="interest-grid">
+
+
+                    <label class="interest-box">
+
+                        <input
+                            type="checkbox"
+                            name="interests"
+                            value="Temple"
+
+                            {% if interests is defined
+                               and "Temple" in interests %}
+
+                            checked
+
+                            {% endif %}
+                        >
+
+                        🛕 Temples
+
+                    </label>
+
+
+
+                    <label class="interest-box">
+
+                        <input
+                            type="checkbox"
+                            name="interests"
+                            value="Waterfall"
+
+                            {% if interests is defined
+                               and "Waterfall" in interests %}
+
+                            checked
+
+                            {% endif %}
+                        >
+
+                        💦 Waterfalls
+
+                    </label>
+
+
+
+                    <label class="interest-box">
+
+                        <input
+                            type="checkbox"
+                            name="interests"
+                            value="Beach"
+
+                            {% if interests is defined
+                               and "Beach" in interests %}
+
+                            checked
+
+                            {% endif %}
+                        >
+
+                        🏖️ Beaches
+
+                    </label>
+
+
+
+                    <label class="interest-box">
+
+                        <input
+                            type="checkbox"
+                            name="interests"
+                            value="Wildlife"
+
+                            {% if interests is defined
+                               and "Wildlife" in interests %}
+
+                            checked
+
+                            {% endif %}
+                        >
+
+                        🐘 Wildlife
+
+                    </label>
+
+
+
+                    <label class="interest-box">
+
+                        <input
+                            type="checkbox"
+                            name="interests"
+                            value="Heritage"
+
+                            {% if interests is defined
+                               and "Heritage" in interests %}
+
+                            checked
+
+                            {% endif %}
+                        >
+
+                        🏛️ Heritage
+
+                    </label>
+
+
+
+                    <label class="interest-box">
+
+                        <input
+                            type="checkbox"
+                            name="interests"
+                            value="Hill"
+
+                            {% if interests is defined
+                               and "Hill" in interests %}
+
+                            checked
+
+                            {% endif %}
+                        >
+
+                        ⛰️ Hill Stations
+
+                    </label>
+
+
+
+                    <label class="interest-box">
+
+                        <input
+                            type="checkbox"
+                            name="interests"
+                            value="Food"
+
+                            {% if interests is defined
+                               and "Food" in interests %}
+
+                            checked
+
+                            {% endif %}
+                        >
+
+                        🍛 Food
+
+                    </label>
+
+
+
+                    <label class="interest-box">
+
+                        <input
+                            type="checkbox"
+                            name="interests"
+                            value="Photography"
+
+                            {% if interests is defined
+                               and "Photography" in interests %}
+
+                            checked
+
+                            {% endif %}
+                        >
+
+                        📷 Photography
+
+                    </label>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ==========================================
+                 GENERATE
+            =========================================== -->
+
+            <div class="button-center">
+
+                <button
+                    type="submit"
+                    class="btn-orange"
+                >
+
+                    ✨ Generate My Trip
+
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         RESULTS
+    ================================================== -->
+
+    {% if itinerary is defined %}
+
+    <!-- ==================================================
+     LIVE WEATHER
+================================================== -->
+
+<div class="result-section">
+
+    <div class="weather-card">
+
+        <div class="weather-header">
+
+            <div>
+
+                <span class="weather-label">
+                    LIVE WEATHER
+                </span>
+
+                <h2>
+                    🌤️ Weather in {{ destination }}
+                </h2>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="refresh-weather-btn"
+                onclick="loadPlannerWeather()"
+            >
+                🔄 Refresh
+            </button>
+
+        </div>
+
+
+        <!-- LOADING: shown only while Refresh is fetching -->
+
+        <div
+            id="plannerWeatherLoading"
+            class="weather-loading"
+            style="display:none;"
+        >
+            Getting live weather...
+        </div>
+
+
+        <!-- WEATHER RESULT -->
+
+        <div
+            id="plannerWeatherContent"
+            class="weather-content"
+            {% if not weather %}style="display:none;"{% endif %}
+        >
+
+            <div class="weather-main">
+
+                <div
+                    id="plannerWeatherIcon"
+                    class="weather-icon"
+                >
+                    {{ weather.icon if weather else "🌤️" }}
+                </div>
+
+                <div>
+
+                    <div
+                        id="plannerTemperature"
+                        class="temperature"
+                    >
+                        {% if weather and weather.temperature is not none %}
+                            {{ weather.temperature }}°C
+                        {% else %}
+                            --
+                        {% endif %}
+                    </div>
+
+                    <div
+                        id="plannerWeatherDescription"
+                        class="weather-description"
+                    >
+                        {{ weather.condition if weather else "--" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="weather-details">
+
+                <div class="weather-detail">
+                    <span>💧 Humidity</span>
+                    <strong id="plannerHumidity">
+                        {% if weather and weather.humidity is not none %}
+                            {{ weather.humidity }}%
+                        {% else %}
+                            --
+                        {% endif %}
+                    </strong>
+                </div>
+
+                <div class="weather-detail">
+                    <span>💨 Wind</span>
+                    <strong id="plannerWind">
+                        {% if weather and weather.wind_speed is not none %}
+                            {{ weather.wind_speed }} km/h
+                        {% else %}
+                            --
+                        {% endif %}
+                    </strong>
+                </div>
+
+                <div class="weather-detail">
+                    <span>📍 Location</span>
+                    <strong>{{ destination }}</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ERROR -->
+
+        <div
+            id="plannerWeatherError"
+            class="weather-error"
+            {% if weather %}style="display:none;"{% endif %}
+        >
+            Unable to load live weather right now. You can still use the trip plan.
+        </div>
+
+    </div>
+
+</div>
+
+
+    <!-- ==============================================
+         TRIP SUMMARY
+    =============================================== -->
+
+    <div class="result-section">
+
+        <div class="result-card">
+
+            <h2 class="section-title">
+
+                🧳 Trip Summary
+
+            </h2>
+
+
+            <div class="trip-summary">
+
+
+                <div class="summary-box">
+
+                    <div class="summary-icon">
+                        📍
+                    </div>
+
+                    <small>
+                        Destination
+                    </small>
+
+                    <strong>
+                        {{ destination }}
+                    </strong>
+
+                </div>
+
+
+
+                <div class="summary-box">
+
+                    <div class="summary-icon">
+                        📅
+                    </div>
+
+                    <small>
+                        Days
+                    </small>
+
+                    <strong>
+                        {{ days }}
+                    </strong>
+
+                </div>
+
+
+
+                <div class="summary-box">
+
+                    <div class="summary-icon">
+                        👥
+                    </div>
+
+                    <small>
+                        Travelers
+                    </small>
+
+                    <strong>
+                        {{ travelers }}
+                    </strong>
+
+                </div>
+
+
+
+                <div class="summary-box">
+
+                    <div class="summary-icon">
+                        💰
+                    </div>
+
+                    <small>
+                        Budget
+                    </small>
+
+                    <strong>
+                        ₹{{ budget }}
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==============================================
+         ITINERARY
+    =============================================== -->
+
+    <div class="result-section">
+
+        <div class="result-card">
+
+
+            <h2 class="section-title">
+
+                🗓️ Your Itinerary
+
+            </h2>
+
+
+
+            {% for day in itinerary %}
+
+
+            <div class="day-card">
+
+
+                <h3 class="day-title">
+
+                    Day {{ day.day }}
+
+                </h3>
+                <!-- FULL DAY ROUTE BUTTON -->
+
+<button
+    type="button"
+    class="day-route-btn"
+    onclick="startDayRoute({{ day.day }})"
+>
+    🗺️ Start Day {{ day.day }} Route
+</button>
+
+
+<!-- HIDDEN DAY PLACES -->
+
+<div
+    id="dayRoute{{ day.day }}"
+    style="display: none;"
+>
+
+    {% for visit in day.places %}
+
+        {% if visit is mapping %}
+
+            <span
+                class="route-place"
+                data-place="{{ visit.name }}"
+            ></span>
+
+        {% else %}
+
+            <span
+                class="route-place"
+                data-place="{{ visit }}"
+            ></span>
+
+        {% endif %}
+
+    {% endfor %}
+
+</div>
+
+
+
+                {% if day.places %}
+
+
+                    {% for visit in day.places %}
+
+
+                        <!-- =================================
+                             SUPPORT BOTH ITINERARY FORMATS
+                        ================================== -->
+
+
+                        {% if visit is mapping %}
+
+
+                            {% set place_name = visit.name %}
+
+                            {% set visit_time = visit.time %}
+
+
+                        {% else %}
+
+
+                            {% set place_name = visit %}
+
+
+                            {% if loop.index == 1 %}
+
+                                {% set visit_time = "Morning" %}
+
+
+                            {% elif loop.index == 2 %}
+
+                                {% set visit_time = "Afternoon" %}
+
+
+                            {% else %}
+
+                                {% set visit_time = "Evening" %}
+
+
+                            {% endif %}
+
+
+                        {% endif %}
+
+
+
+                        <div class="place-item">
+
+
+                            <!-- TIME -->
+
+                            <div class="visit-time">
+
+
+                                {% if visit_time == "Morning" %}
+
+                                    🌅 Morning
+
+
+                                {% elif visit_time == "Afternoon" %}
+
+                                    ☀️ Afternoon
+
+
+                                {% else %}
+
+                                    🌇 Evening
+
+
+                                {% endif %}
+
+
+                            </div>
+
+
+
+                            <!-- PLACE -->
+
+                            <div class="visit-place">
+
+                                📍 {{ place_name }}
+
+                            </div>
+
+
+
+                            <!-- ACTIONS -->
+
+                            <div class="place-actions">
+
+
+                                {% if place_name in places %}
+
+                                <a
+                                    href="{{ url_for('place_details', place_name=place_name) }}"
+                                    class="view-place-btn"
+                                >
+
+                                    👁 View
+
+                                </a>
+
+                                {% endif %}
+
+
+
+                                <button
+                                    type="button"
+                                    class="direction-btn"
+                                    data-place="{{ place_name }}"
+                                >
+
+                                    ➜ Directions
+
+                                </button>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    {% endfor %}
+
+
+                {% else %}
+
+
+                    <p>
+
+                        No specific places available
+                        for this day.
+
+                    </p>
+
+
+                {% endif %}
+
+
+            </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==============================================
+         RECOMMENDED PLACES
+    =============================================== -->
+
+    {% if recommended_places is defined
+       and recommended_places %}
+
+
+    <div class="result-section">
+
+        <div class="result-card">
+
+
+            <h2 class="section-title">
+
+                🧭 Places You Can Visit
+
+            </h2>
+
+
+            <div class="recommended-grid">
+
+
+                {% for location in recommended_places %}
+
+
+                <div class="recommended-card">
+
+
+                    <div class="recommended-name">
+
+                        📍 {{ location }}
+
+                    </div>
+
+
+                    <div class="place-actions">
+
+
+                        {% if location in places %}
+
+                        <a
+                            href="{{ url_for('place_details', place_name=location) }}"
+                            class="view-place-btn"
+                        >
+
+                            👁 View Place
+
+                        </a>
+
+                        {% endif %}
+
+
+
+                        <button
+                            type="button"
+                            class="direction-btn"
+                            data-place="{{ location }}"
+                        >
+
+                            ➜ Directions
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+                {% endfor %}
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    {% endif %}
+
+
+
+    <!-- ==============================================
+         BUDGET
+    =============================================== -->
+
+    {% if budget_breakdown is defined %}
+
+
+    <div class="result-section">
+
+        <div class="budget-box">
+
+
+            <h2 class="section-title">
+
+                💰 Budget Breakdown
+
+            </h2>
+
+
+
+            <div class="budget-row">
+
+                <span>
+                    🚕 Transport
+                </span>
+
+                <span class="budget-value">
+
+                    ₹{{ budget_breakdown["Transport"] }}
+
+                </span>
+
+            </div>
+
+
+
+            <div class="budget-row">
+
+                <span>
+                    🏨 Hotel
+                </span>
+
+                <span class="budget-value">
+
+                    ₹{{ budget_breakdown["Hotel"] }}
+
+                </span>
+
+            </div>
+
+
+
+            <div class="budget-row">
+
+                <span>
+                    🍛 Food
+                </span>
+
+                <span class="budget-value">
+
+                    ₹{{ budget_breakdown["Food"] }}
+
+                </span>
+
+            </div>
+
+
+
+            <div class="budget-row">
+
+                <span>
+                    🎟️ Activities
+                </span>
+
+                <span class="budget-value">
+
+                    ₹{{ budget_breakdown["Activities"] }}
+
+                </span>
+
+            </div>
+
+
+
+            <div class="budget-row">
+
+                <span>
+                    🩹 Emergency
+                </span>
+
+                <span class="budget-value">
+
+                    ₹{{ budget_breakdown["Emergency"] }}
+
+                </span>
+
+            </div>
+
+
+
+            <div class="remaining">
+
+                <span>
+                    Remaining
+                </span>
+
+                <span>
+
+                    ₹{{ budget_breakdown["Remaining"] }}
+
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    {% endif %}
+
+
+
+    <!-- ==============================================
+         MY TRIPS
+    =============================================== -->
+
+    {% if session.get("user_email") %}
+
+
+    <div class="button-center">
+
+        <a
+            href="{{ url_for('my_trips') }}"
+            class="btn-orange"
+        >
+
+            🧳 View My Trips
+
+        </a>
+
+    </div>
+
+
+    {% endif %}
+
+
+    {% endif %}
+
+
+</main>
+
+
+
+<!-- ======================================================
+     FOOTER
+====================================================== -->
+
+<footer>
+
+    <strong>
+        YatraSathi
+    </strong>
+
+    <p>
+
+        Your Smart Karnataka Travel Companion
+
+    </p>
+
+</footer>
+
+
+
+<!-- ======================================================
+     CURRENT LOCATION + DIRECTIONS
+====================================================== -->
+
+<script>
+
+let userLatitude = null;
+let userLongitude = null;
+
+
+/* ==================================================
+   PAGE LOAD
+================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        /* ------------------------------------------
+           LOAD SAVED LOCATION
+        ------------------------------------------ */
+
+        const savedLatitude =
+            localStorage.getItem(
+                "yatrasathi_lat"
+            );
+
+
+        const savedLongitude =
+            localStorage.getItem(
+                "yatrasathi_lng"
+            );
+
+
+        if (
+            savedLatitude &&
+            savedLongitude
+        ) {
+
+            userLatitude =
+                savedLatitude;
+
+
+            userLongitude =
+                savedLongitude;
+
+
+            showLocationReady();
+
+        }
+
+
+
+        /* ------------------------------------------
+           DIRECTIONS BUTTONS
+        ------------------------------------------ */
+
+        const directionButtons =
+            document.querySelectorAll(
+                ".direction-btn"
+            );
+
+
+        directionButtons.forEach(
+            function (button) {
+
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+
+                        const placeName =
+                            button.dataset.place;
+
+
+                        openDirections(
+                            placeName
+                        );
+
+
+                    }
+                );
+
+
+            }
+        );
+
+
+    }
+);
+
+
+
+/* ==================================================
+   GET CURRENT LOCATION
+================================================== */
+
+function getCurrentLocation() {
+
+
+    const status =
+        document.getElementById(
+            "locationStatus"
+        );
+
+
+    const button =
+        document.getElementById(
+            "locationBtn"
+        );
+
+
+    if (!navigator.geolocation) {
+
+
+        if (status) {
+
+            status.className =
+                "location-status location-error";
+
+
+            status.textContent =
+                "❌ Location is not supported by this browser.";
+
+        }
+
+
+        return;
+
+    }
+
+
+
+    if (status) {
+
+        status.className =
+            "location-status";
+
+
+        status.textContent =
+            "📍 Getting your current location...";
+
+    }
+
+
+
+    if (button) {
+
+        button.disabled =
+            true;
+
+
+        button.textContent =
+            "📍 Detecting Location...";
+
+    }
+
+
+
+    navigator.geolocation.getCurrentPosition(
+
+
+        /* ==========================================
+           SUCCESS
+        =========================================== */
+
+        function (position) {
+
+
+            userLatitude =
+                position.coords.latitude;
+
+
+            userLongitude =
+                position.coords.longitude;
+
+
+
+            /* SAVE IN BROWSER */
+
+            localStorage.setItem(
+                "yatrasathi_lat",
+                userLatitude
+            );
+
+
+            localStorage.setItem(
+                "yatrasathi_lng",
+                userLongitude
+            );
+
+
+
+            showLocationReady();
+
+
+            if (button) {
+
+                button.disabled =
+                    false;
+
+            }
+
+
+        },
+
+
+
+        /* ==========================================
+           ERROR
+        =========================================== */
+
+        function (error) {
+
+
+            console.log(
+                "Location error:",
+                error
+            );
+
+
+            if (status) {
+
+
+                status.className =
+                    "location-status location-error";
+
+
+                if (
+                    error.code ===
+                    error.PERMISSION_DENIED
+                ) {
+
+
+                    status.textContent =
+                        "❌ Location permission denied. Please allow location access.";
+
+
+                }
+
+
+                else if (
+                    error.code ===
+                    error.POSITION_UNAVAILABLE
+                ) {
+
+
+                    status.textContent =
+                        "❌ Your current location is unavailable.";
+
+
+                }
+
+
+                else if (
+                    error.code ===
+                    error.TIMEOUT
+                ) {
+
+
+                    status.textContent =
+                        "❌ Location request timed out. Please try again.";
+
+
+                }
+
+
+                else {
+
+
+                    status.textContent =
+                        "❌ Unable to get your current location.";
+
+
+                }
+
+
+            }
+
+
+
+            if (button) {
+
+
+                button.disabled =
+                    false;
+
+
+                button.textContent =
+                    "📍 Use My Current Location";
+
+
+            }
+
+
+        },
+
+
+
+        /* ==========================================
+           OPTIONS
+        =========================================== */
+
+        {
+
+            enableHighAccuracy:
+                true,
+
+
+            timeout:
+                10000,
+
+
+            maximumAge:
+                60000
+
+        }
+
+
+    );
+
+}
+
+
+
+/* ==================================================
+   LOCATION READY
+================================================== */
+
+function showLocationReady() {
+
+
+    const status =
+        document.getElementById(
+            "locationStatus"
+        );
+
+
+    const button =
+        document.getElementById(
+            "locationBtn"
+        );
+
+
+    if (status) {
+
+
+        status.className =
+            "location-status location-success";
+
+
+        status.textContent =
+            "✅ Current location ready";
+
+
+    }
+
+
+    if (button) {
+
+
+        button.disabled =
+            false;
+
+
+        button.textContent =
+            "✅ Current Location Added";
+
+
+    }
+
+}
+
+
+
+/* ==================================================
+   OPEN DIRECTIONS
+================================================== */
+
+function openDirections(
+    placeName
+) {
+
+
+    if (!placeName) {
+
+        return;
+
+    }
+
+
+
+    const destination =
+        placeName +
+        ", Karnataka, India";
+
+
+
+    /*
+       Split URL so there is no dependency
+       on another JavaScript library.
+    */
+
+    let mapsUrl =
+        "https:" +
+        "//www.google.com/maps/dir/?api=1";
+
+
+
+    /* ------------------------------------------
+       CURRENT LOCATION AS ORIGIN
+    ------------------------------------------ */
+
+    if (
+        userLatitude !== null &&
+        userLongitude !== null
+    ) {
+
+
+        mapsUrl +=
+            "&origin=" +
+            encodeURIComponent(
+                userLatitude +
+                "," +
+                userLongitude
+            );
+
+
+    }
+
+
+
+    /* ------------------------------------------
+       DESTINATION
+    ------------------------------------------ */
+
+    mapsUrl +=
+        "&destination=" +
+        encodeURIComponent(
+            destination
+        );
+
+
+
+    /* DRIVING MODE */
+
+    mapsUrl +=
+        "&travelmode=driving";
+
+
+
+    window.open(
+        mapsUrl,
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+}
+
+/* ==================================================
+   START COMPLETE DAY ROUTE
+================================================== */
+
+function startDayRoute(dayNumber) {
+
+    const routeContainer =
+        document.getElementById(
+            "dayRoute" + dayNumber
+        );
+
+
+    if (!routeContainer) {
+
+        alert(
+            "Route information is not available."
+        );
+
+        return;
+    }
+
+
+    const placeElements =
+        routeContainer.querySelectorAll(
+            ".route-place"
+        );
+
+
+    const dayPlaces = [];
+
+
+    placeElements.forEach(
+        function (element) {
+
+            const placeName =
+                element.dataset.place;
+
+            if (placeName) {
+
+                dayPlaces.push(
+                    placeName +
+                    ", Karnataka, India"
+                );
+
+            }
+
+        }
+    );
+
+
+    if (dayPlaces.length === 0) {
+
+        alert(
+            "No places available for this day."
+        );
+
+        return;
+    }
+
+
+    let mapsUrl =
+        "https:" +
+        "//www.google.com/maps/dir/?api=1";
+
+
+    /* ------------------------------------------
+       START FROM CURRENT LOCATION
+    ------------------------------------------ */
+
+    if (
+        userLatitude !== null &&
+        userLongitude !== null
+    ) {
+
+        mapsUrl +=
+            "&origin=" +
+            encodeURIComponent(
+                userLatitude +
+                "," +
+                userLongitude
+            );
+
+    }
+
+
+    /* ------------------------------------------
+       LAST PLACE = DESTINATION
+    ------------------------------------------ */
+
+    const finalDestination =
+        dayPlaces[
+            dayPlaces.length - 1
+        ];
+
+
+    mapsUrl +=
+        "&destination=" +
+        encodeURIComponent(
+            finalDestination
+        );
+
+
+    /* ------------------------------------------
+       OTHER PLACES = WAYPOINTS
+    ------------------------------------------ */
+
+    if (dayPlaces.length > 1) {
+
+        const waypoints =
+            dayPlaces.slice(
+                0,
+                dayPlaces.length - 1
+            );
+
+
+        mapsUrl +=
+            "&waypoints=" +
+            encodeURIComponent(
+                waypoints.join("|")
+            );
+
+    }
+
+
+    mapsUrl +=
+        "&travelmode=driving";
+
+
+    window.open(
+        mapsUrl,
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+}
+
+/* ==================================================
+   PLANNER LIVE WEATHER
+================================================== */
+
+
+
+/* ============================================================
+   YATRASATHI PLANNER LIVE WEATHER
+============================================================ */
+
+async function loadPlannerWeather() {
+
+    const destination =
+        {{ destination | default('', true) | tojson }};
+
+
+    console.log(
+        "Weather destination:",
+        destination
+    );
+
+
+    /* No destination yet */
+
+    if (!destination) {
+
+        console.log(
+            "No destination selected."
+        );
+
+        return;
+    }
+
+
+    const loading =
+        document.getElementById(
+            "plannerWeatherLoading"
+        );
+
+    const content =
+        document.getElementById(
+            "plannerWeatherContent"
+        );
+
+    const errorBox =
+        document.getElementById(
+            "plannerWeatherError"
+        );
+
+
+    /* Weather card is not on page */
+
+    if (
+        !loading ||
+        !content ||
+        !errorBox
+    ) {
+
+        console.log(
+            "Weather HTML elements not found."
+        );
+
+        return;
+    }
+
+
+    /* Show loading */
+
+    loading.style.display =
+        "block";
+
+    content.style.display =
+        "none";
+
+    errorBox.style.display =
+        "none";
+
+
+    try {
+
+        const weatherUrl =
+            "/api/weather/" +
+            encodeURIComponent(
+                destination
+            );
+
+
+        console.log(
+            "Weather API:",
+            weatherUrl
+        );
+
+
+        const response =
+            await fetch(
+                weatherUrl
+            );
+
+
+        console.log(
+            "Weather status:",
+            response.status
+        );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Weather response:",
+            data
+        );
+
+
+        /* ================================================
+           CHECK API RESPONSE
+        ================================================= */
+
+        if (
+            !response.ok ||
+            data.success !== true
+        ) {
+
+            throw new Error(
+                data.error ||
+                "Weather information unavailable."
+            );
+
+        }
+
+
+        /* ================================================
+           IMPORTANT FIX
+
+           Flask sends:
+
+           {
+               success: true,
+               weather: {...}
+           }
+
+           Therefore use data.weather
+        ================================================= */
+
+        const weather =
+            data.weather;
+
+
+        if (!weather) {
+
+            throw new Error(
+                "Weather data missing."
+            );
+
+        }
+
+
+        /* ================================================
+           GET VALUES
+        ================================================= */
+
+        const temperature =
+            weather.temperature;
+
+        const humidity =
+            weather.humidity;
+
+        const windSpeed =
+            weather.wind_speed;
+
+        const condition =
+            weather.condition ||
+            "Current Weather";
+
+        const weatherIcon =
+            weather.icon;
+
+
+        /* ================================================
+           TEMPERATURE
+        ================================================= */
+
+        const temperatureElement =
+            document.getElementById(
+                "plannerTemperature"
+            );
+
+
+        if (temperatureElement) {
+
+            if (
+                temperature !== null &&
+                temperature !== undefined
+            ) {
+
+                temperatureElement.textContent =
+                    temperature + "°C";
+
+            }
+
+            else {
+
+                temperatureElement.textContent =
+                    "--";
+
+            }
+
+        }
+
+
+        /* ================================================
+           HUMIDITY
+        ================================================= */
+
+        const humidityElement =
+            document.getElementById(
+                "plannerHumidity"
+            );
+
+
+        if (humidityElement) {
+
+            if (
+                humidity !== null &&
+                humidity !== undefined
+            ) {
+
+                humidityElement.textContent =
+                    humidity + "%";
+
+            }
+
+            else {
+
+                humidityElement.textContent =
+                    "--";
+
+            }
+
+        }
+
+
+        /* ================================================
+           WIND
+        ================================================= */
+
+        const windElement =
+            document.getElementById(
+                "plannerWind"
+            );
+
+
+        if (windElement) {
+
+            if (
+                windSpeed !== null &&
+                windSpeed !== undefined
+            ) {
+
+                windElement.textContent =
+                    windSpeed + " km/h";
+
+            }
+
+            else {
+
+                windElement.textContent =
+                    "--";
+
+            }
+
+        }
+
+
+        /* ================================================
+           CONDITION
+        ================================================= */
+
+        const descriptionElement =
+            document.getElementById(
+                "plannerWeatherDescription"
+            );
+
+
+        if (descriptionElement) {
+
+            descriptionElement.textContent =
+                condition;
+
+        }
+
+
+        /* ================================================
+           WEATHER ICON
+        ================================================= */
+
+        const iconElement =
+            document.getElementById(
+                "plannerWeatherIcon"
+            );
+
+
+        if (iconElement) {
+
+            /*
+               Your Python weather function already
+               provides an icon.
+            */
+
+            if (weatherIcon) {
+
+                iconElement.textContent =
+                    weatherIcon;
+
+            }
+
+            else {
+
+                setPlannerWeatherIcon(
+                    condition
+                );
+
+            }
+
+        }
+
+
+        /* ================================================
+           SHOW WEATHER
+        ================================================= */
+
+        loading.style.display =
+            "none";
+
+        errorBox.style.display =
+            "none";
+
+        content.style.display =
+            "block";
+
+
+        console.log(
+            "Weather loaded successfully."
+        );
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "Planner weather error:",
+            error
+        );
+
+
+        loading.style.display =
+            "none";
+
+        content.style.display =
+            "none";
+
+        errorBox.style.display =
+            "block";
+
+
+        errorBox.textContent =
+            "⚠️ " +
+            error.message;
+
+    }
+
+}
+
+
+
+/* ============================================================
+   WEATHER ICON FALLBACK
+============================================================ */
+
+function setPlannerWeatherIcon(
+    condition
+) {
+
+    const icon =
+        document.getElementById(
+            "plannerWeatherIcon"
+        );
+
+
+    if (!icon) {
+
+        return;
+
+    }
+
+
+    const text =
+        String(
+            condition || ""
+        ).toLowerCase();
+
+
+    if (
+        text.includes("thunder") ||
+        text.includes("storm")
+    ) {
+
+        icon.textContent =
+            "⛈️";
+
+    }
+
+
+    else if (
+        text.includes("rain") ||
+        text.includes("drizzle")
+    ) {
+
+        icon.textContent =
+            "🌧️";
+
+    }
+
+
+    else if (
+        text.includes("cloud") ||
+        text.includes("overcast")
+    ) {
+
+        icon.textContent =
+            "☁️";
+
+    }
+
+
+    else if (
+        text.includes("fog") ||
+        text.includes("mist")
+    ) {
+
+        icon.textContent =
+            "🌫️";
+
+    }
+
+
+    else {
+
+        icon.textContent =
+            "☀️";
+
+    }
+
+}
+
+
+
+</script>
+
+
+
+<!-- ======================================================
+     TRANSLATION
+====================================================== -->
+
+<script
+    src="{{ url_for('static', filename='js/translation.js') }}"
+></script>
+
+
+
+<!-- ======================================================
+     CHATBOT
+====================================================== -->
+
+{% include 'chatbot.html' %}
+
+
+</body>
+
+</html>

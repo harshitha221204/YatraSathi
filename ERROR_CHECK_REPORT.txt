@@ -1,0 +1,29 @@
+YatraSathi Error Check Report
+=============================
+
+Completed checks
+----------------
+[PASS] app.py, database.py, places.py, stories.py and test_gemini.py compile successfully.
+[PASS] All Jinja templates parse successfully.
+[PASS] All static JavaScript files pass JavaScript syntax checking.
+[PASS] All inline JavaScript blocks in templates pass syntax checking.
+[PASS] All url_for endpoint references resolve to an app.py route.
+[PASS] All render_template calls point to templates that exist.
+[PASS] Home Live Weather button is the final navbar item for both logged-in and logged-out states.
+[PASS] Home page now loads the CSS required by the Live Weather and Assistant buttons.
+[PASS] Home page duplicate <style> tags were fixed.
+[PASS] script.js duplicate variable declaration was removed and AOS is now optional/safe.
+[PASS] Profile links now use the correct dashboard endpoint.
+[PASS] Hotels and Restaurants templates were added so Place Details buttons do not cause TemplateNotFound.
+[PASS] Near Me route/template added.
+[PASS] Login remembers only the email; passwords are left to the browser password manager.
+[PASS] New registrations store hashed passwords. Older plain-text accounts are migrated to a hash after a successful login.
+[PASS] Existing chatbot, voice input, map responses, weather responses, trip planner and saved trips were preserved.
+
+Important external/runtime notes
+--------------------------------
+- Gemini, Open-Meteo weather, Google Maps links, CDN icons/Bootstrap and map tiles require an internet connection.
+- Voice recognition needs browser microphone permission and is best supported by Chrome/Edge.
+- Current location needs browser location permission. It works on localhost and HTTPS deployments.
+- 26 destinations currently do not have matching local image files. Explore already shows a placeholder; Place Details now has a background fallback so pages remain usable.
+- A live Gemini request could not be executed inside the offline file-check environment. The code and configured model name were validated structurally, and the model/fallback IDs are current stable Gemini model IDs.

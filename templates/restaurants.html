@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurants near {{ place_name }} | YatraSathi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body{margin:0;font-family:Arial,sans-serif;background:#fff8f0;color:#222}.nav{background:#fff;padding:15px 7%;display:flex;justify-content:space-between;box-shadow:0 2px 12px rgba(0,0,0,.08)}.nav a{text-decoration:none;font-weight:700}.brand{color:#f28c28;font-size:22px}.back{color:#555}.wrap{max-width:1000px;margin:55px auto;padding:0 20px}.hero{text-align:center;margin-bottom:30px}.hero i{font-size:45px;color:#f28c28}.hero h1{margin:12px 0 6px}.hero p{color:#777}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}.card{background:#fff;padding:22px;border-radius:16px;box-shadow:0 8px 25px rgba(0,0,0,.08)}.card h3{margin-top:0}.empty{text-align:center;background:#fff;padding:30px;border-radius:16px;box-shadow:0 8px 25px rgba(0,0,0,.08)}.maps{display:inline-flex;align-items:center;gap:8px;margin-top:16px;background:#f28c28;color:#fff;text-decoration:none;padding:12px 18px;border-radius:10px;font-weight:700}
+    </style>
+</head>
+<body>
+<nav class="nav"><a class="brand" href="{{ url_for('home') }}">🌄 YatraSathi</a><a class="back" href="{{ url_for('place_details', place_name=place_name) }}">← Back to place</a></nav>
+<main class="wrap">
+    <div class="hero"><i class="fa-solid fa-utensils"></i><h1>Restaurants near {{ place_name }}</h1><p>Discover food and restaurant options around your destination.</p></div>
+    {% if restaurants %}
+    <div class="grid">
+        {% for restaurant in restaurants %}
+        <div class="card"><h3>{{ restaurant.name if restaurant.name is defined else restaurant }}</h3>{% if restaurant.cuisine is defined %}<p>{{ restaurant.cuisine }}</p>{% endif %}</div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty"><h3>Search live restaurant options</h3><p>YatraSathi does not have a local restaurant list for this destination yet. Use Google Maps to see current nearby restaurants and reviews.</p><a class="maps" href="{{ maps_url }}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-map-location-dot"></i> Find Restaurants on Google Maps</a></div>
+    {% endif %}
+</main>
+</body>
+</html>

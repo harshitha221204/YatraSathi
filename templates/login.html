@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Login | YatraSathi</title>
+
+
+    <!-- =========================================
+         BOOTSTRAP
+    ========================================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- =========================================
+         FONT AWESOME
+    ========================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <style>
+
+        /* =========================================
+           PAGE
+        ========================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                sans-serif;
+
+
+            background:
+
+                linear-gradient(
+                    rgba(0, 0, 0, 0.55),
+                    rgba(0, 0, 0, 0.55)
+                ),
+
+                url(
+                    "{{ url_for('static', filename='images/hampi_bg.jpg') }}"
+                );
+
+
+            background-size: cover;
+
+            background-position: center;
+
+            background-attachment: fixed;
+
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 25px;
+
+        }
+
+
+
+        /* =========================================
+           LOGIN CARD
+        ========================================== */
+
+        .login-card {
+
+            width: 420px;
+
+            max-width: 100%;
+
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.96
+                );
+
+
+            border-radius: 20px;
+
+
+            padding: 35px;
+
+
+            box-shadow:
+
+                0 15px 40px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.30
+                );
+
+
+            animation:
+                cardAppear
+                0.6s
+                ease;
+
+        }
+
+
+        @keyframes cardAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(25px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           LOGO
+        ========================================== */
+
+        .logo {
+
+            text-align: center;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .logo-icon {
+
+            width: 72px;
+
+            height: 72px;
+
+
+            margin:
+                0 auto
+                12px;
+
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+
+            border-radius: 50%;
+
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    #f59e0b,
+                    #f97316
+                );
+
+
+            color: white;
+
+
+            font-size: 30px;
+
+
+            box-shadow:
+
+                0 8px 20px
+                rgba(
+                    245,
+                    158,
+                    11,
+                    0.30
+                );
+
+
+            animation:
+                logoFloat
+                3s
+                ease-in-out
+                infinite;
+
+        }
+
+
+        @keyframes logoFloat {
+
+            0%,
+            100% {
+
+                transform:
+                    translateY(0);
+
+            }
+
+            50% {
+
+                transform:
+                    translateY(-5px);
+
+            }
+
+        }
+
+
+        .logo h2 {
+
+            margin-top: 8px;
+
+            margin-bottom: 5px;
+
+
+            font-weight: 700;
+
+            color: #222;
+
+        }
+
+
+        .logo p {
+
+            color: #777;
+
+            margin-bottom: 0;
+
+            font-size: 14px;
+
+        }
+
+
+
+        /* =========================================
+           ERROR MESSAGE
+        ========================================== */
+
+        .error-message {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+
+            background:
+                #fee2e2;
+
+
+            color:
+                #b91c1c;
+
+
+            padding: 11px;
+
+
+            border-radius: 9px;
+
+
+            margin-bottom: 18px;
+
+
+            text-align: center;
+
+
+            font-size: 14px;
+
+        }
+
+
+
+        /* =========================================
+           LABEL
+        ========================================== */
+
+        .form-label {
+
+            font-weight: 600;
+
+            color: #333;
+
+            font-size: 14px;
+
+        }
+
+
+        .form-label i {
+
+            margin-right: 5px;
+
+            color: #f59e0b;
+
+        }
+
+
+
+        /* =========================================
+           INPUT
+        ========================================== */
+
+        .form-control {
+
+            padding: 12px 14px;
+
+            border-radius: 9px;
+
+            border:
+                1px solid
+                #d8d8d8;
+
+
+            font-size: 14px;
+
+
+            transition:
+                all
+                0.25s
+                ease;
+
+        }
+
+
+        .form-control:hover {
+
+            border-color:
+                #fbbf24;
+
+        }
+
+
+        .form-control:focus {
+
+            border-color:
+                #f59e0b;
+
+
+            box-shadow:
+
+                0 0 0
+                0.2rem
+                rgba(
+                    245,
+                    158,
+                    11,
+                    0.15
+                );
+
+        }
+
+
+
+        /* =========================================
+           PASSWORD FIELD
+        ========================================== */
+
+        .password-wrap {
+
+            position: relative;
+
+        }
+
+
+        .password-wrap input {
+
+            padding-right: 50px;
+
+        }
+
+
+        .eye-btn {
+
+            position: absolute;
+
+
+            right: 9px;
+
+            top: 50%;
+
+
+            transform:
+                translateY(-50%);
+
+
+            width: 36px;
+
+            height: 36px;
+
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+
+            border: none;
+
+            border-radius: 50%;
+
+
+            background:
+                transparent;
+
+
+            color:
+                #777;
+
+
+            cursor: pointer;
+
+
+            transition:
+                all
+                0.2s
+                ease;
+
+        }
+
+
+        .eye-btn:hover {
+
+            color:
+                #f59e0b;
+
+
+            background:
+                #fff7ed;
+
+        }
+
+
+
+        /* =========================================
+           LOGIN OPTIONS
+        ========================================== */
+
+        .login-options {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+
+            margin-top:
+                -7px;
+
+
+            margin-bottom:
+                18px;
+
+        }
+
+
+
+        /* =========================================
+           REMEMBER EMAIL
+        ========================================== */
+
+        .remember-box {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+
+            color: #555;
+
+
+            font-size: 14px;
+
+
+            cursor: pointer;
+
+
+            user-select: none;
+
+        }
+
+
+        .remember-box input {
+
+            width: 17px;
+
+            height: 17px;
+
+
+            accent-color:
+                #f59e0b;
+
+
+            cursor: pointer;
+
+        }
+
+
+        .remember-box span {
+
+            cursor: pointer;
+
+        }
+
+
+
+        /* =========================================
+           LOGIN BUTTON
+        ========================================== */
+
+        .login-btn {
+
+            width: 100%;
+
+
+            padding: 13px;
+
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+
+            border: none;
+
+            border-radius: 10px;
+
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    #f59e0b,
+                    #f97316
+                );
+
+
+            color:
+                white;
+
+
+            font-weight:
+                bold;
+
+
+            font-size:
+                16px;
+
+
+            cursor:
+                pointer;
+
+
+            box-shadow:
+
+                0 7px 18px
+                rgba(
+                    245,
+                    158,
+                    11,
+                    0.25
+                );
+
+
+            transition:
+
+                transform
+                0.3s
+                ease,
+
+                box-shadow
+                0.3s
+                ease;
+
+        }
+
+
+        .login-btn:hover {
+
+            color: white;
+
+
+            transform:
+                translateY(-2px);
+
+
+            box-shadow:
+
+                0 10px 24px
+                rgba(
+                    245,
+                    158,
+                    11,
+                    0.38
+                );
+
+        }
+
+
+        .login-btn:active {
+
+            transform:
+                translateY(0)
+                scale(0.98);
+
+        }
+
+
+
+        /* =========================================
+           PASSWORD MANAGER INFO
+        ========================================== */
+
+        .password-info {
+
+            display: flex;
+
+            align-items:
+                flex-start;
+
+            gap: 8px;
+
+
+            margin-top:
+                14px;
+
+
+            padding:
+                10px 12px;
+
+
+            background:
+                #f8fafc;
+
+
+            border:
+                1px solid
+                #e5e7eb;
+
+
+            border-radius:
+                9px;
+
+
+            color:
+                #64748b;
+
+
+            font-size:
+                11px;
+
+
+            line-height:
+                1.5;
+
+        }
+
+
+        .password-info i {
+
+            margin-top: 2px;
+
+            color:
+                #f59e0b;
+
+        }
+
+
+
+        /* =========================================
+           REGISTER
+        ========================================== */
+
+        .register-link {
+
+            text-align:
+                center;
+
+
+            margin-top:
+                20px;
+
+
+            color:
+                #666;
+
+
+            font-size:
+                14px;
+
+        }
+
+
+        .register-link a {
+
+            color:
+                #f59e0b;
+
+
+            font-weight:
+                bold;
+
+
+            text-decoration:
+                none;
+
+        }
+
+
+        .register-link a:hover {
+
+            color:
+                #d97706;
+
+
+            text-decoration:
+                underline;
+
+        }
+
+
+
+        /* =========================================
+           HOME LINK
+        ========================================== */
+
+        .back-home {
+
+            text-align:
+                center;
+
+
+            margin-top:
+                15px;
+
+        }
+
+
+        .back-home a {
+
+            display:
+                inline-flex;
+
+
+            align-items:
+                center;
+
+
+            gap:
+                6px;
+
+
+            color:
+                #777;
+
+
+            font-size:
+                13px;
+
+
+            text-decoration:
+                none;
+
+
+            transition:
+                color
+                0.2s
+                ease;
+
+        }
+
+
+        .back-home a:hover {
+
+            color:
+                #f59e0b;
+
+        }
+
+
+
+        /* =========================================
+           MOBILE
+        ========================================== */
+
+        @media (
+            max-width: 500px
+        ) {
+
+            body {
+
+                padding:
+                    15px;
+
+            }
+
+
+            .login-card {
+
+                padding:
+                    28px
+                    22px;
+
+            }
+
+
+            .logo-icon {
+
+                width:
+                    62px;
+
+                height:
+                    62px;
+
+                font-size:
+                    26px;
+
+            }
+
+
+            .logo h2 {
+
+                font-size:
+                    24px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+
+<body>
+
+
+<!-- =============================================
+     LOGIN CARD
+============================================== -->
+
+<div class="login-card">
+
+
+    <!-- =========================================
+         LOGO
+    ========================================== -->
+
+    <div class="logo">
+
+
+        <div class="logo-icon">
+
+            <i class="fa-solid fa-route"></i>
+
+        </div>
+
+
+        <h2>
+            Welcome Back
+        </h2>
+
+
+        <p>
+            Login to your YatraSathi account
+        </p>
+
+
+    </div>
+
+
+
+    <!-- =========================================
+         ERROR
+    ========================================== -->
+
+    {% if error %}
+
+
+    <div class="error-message">
+
+        <i
+            class="fa-solid fa-circle-exclamation"
+        ></i>
+
+        <span>
+            {{ error }}
+        </span>
+
+    </div>
+
+
+    {% endif %}
+
+
+
+    <!-- =========================================
+         LOGIN FORM
+    ========================================== -->
+
+    <form
+
+        id="loginForm"
+
+        method="POST"
+
+        action="{{ url_for('login') }}"
+
+        autocomplete="on"
+
+    >
+
+
+
+        <!-- =====================================
+             EMAIL
+        ====================================== -->
+
+        <div class="mb-3">
+
+
+            <label
+                for="email"
+                class="form-label"
+            >
+
+                <i
+                    class="fa-solid fa-envelope"
+                ></i>
+
+                Email Address
+
+            </label>
+
+
+
+            <input
+
+                type="email"
+
+                id="email"
+
+                name="email"
+
+                class="form-control"
+
+                placeholder="Enter your email"
+
+                autocomplete="username"
+
+                inputmode="email"
+
+                required
+
+            >
+
+
+        </div>
+
+
+
+        <!-- =====================================
+             PASSWORD
+        ====================================== -->
+
+        <div class="mb-4">
+
+
+            <label
+                for="password"
+                class="form-label"
+            >
+
+                <i
+                    class="fa-solid fa-lock"
+                ></i>
+
+                Password
+
+            </label>
+
+
+
+            <div class="password-wrap">
+
+
+                <input
+
+                    type="password"
+
+                    id="password"
+
+                    name="password"
+
+                    class="form-control"
+
+                    placeholder="Enter your password"
+
+                    autocomplete="current-password"
+
+                    required
+
+                >
+
+
+
+                <!-- SHOW / HIDE PASSWORD -->
+
+                <button
+
+                    type="button"
+
+                    class="eye-btn"
+
+                    id="togglePasswordButton"
+
+                    onclick="togglePassword()"
+
+                    aria-label="Show password"
+
+                    title="Show password"
+
+                >
+
+                    <i
+                        id="eyeIcon"
+                        class="fa-solid fa-eye"
+                    ></i>
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =====================================
+             REMEMBER EMAIL
+        ====================================== -->
+
+        <div class="login-options">
+
+
+            <label class="remember-box">
+
+
+                <input
+
+                    type="checkbox"
+
+                    id="rememberMe"
+
+                >
+
+
+                <span>
+                    Remember my email
+                </span>
+
+
+            </label>
+
+
+        </div>
+
+
+
+        <!-- =====================================
+             LOGIN BUTTON
+        ====================================== -->
+
+        <button
+
+            type="submit"
+
+            class="login-btn"
+
+        >
+
+            <i
+                class="fa-solid fa-right-to-bracket"
+            ></i>
+
+            <span>
+                Login
+            </span>
+
+        </button>
+
+
+
+        <!-- =====================================
+             PASSWORD MANAGER MESSAGE
+        ====================================== -->
+
+        <div class="password-info">
+
+            <i
+                class="fa-solid fa-shield-halved"
+            ></i>
+
+            <span>
+
+                Your browser can securely save and
+                autofill your YatraSathi password
+                after you log in.
+
+            </span>
+
+        </div>
+
+
+    </form>
+
+
+
+    <!-- =========================================
+         REGISTER
+    ========================================== -->
+
+    <div class="register-link">
+
+
+        Don't have an account?
+
+
+        <a
+            href="{{ url_for('register') }}"
+        >
+
+            Create Account
+
+        </a>
+
+
+    </div>
+
+
+
+    <!-- =========================================
+         BACK HOME
+    ========================================== -->
+
+    <div class="back-home">
+
+
+        <a href="{{ url_for('home') }}">
+
+            <i
+                class="fa-solid fa-arrow-left"
+            ></i>
+
+            Back to YatraSathi
+
+        </a>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =============================================
+     JAVASCRIPT
+============================================== -->
+
+<script>
+
+
+/* ==============================================
+   SHOW / HIDE PASSWORD
+============================================== */
+
+function togglePassword() {
+
+
+    const password =
+        document.getElementById(
+            "password"
+        );
+
+
+    const icon =
+        document.getElementById(
+            "eyeIcon"
+        );
+
+
+    const button =
+        document.getElementById(
+            "togglePasswordButton"
+        );
+
+
+
+    if (
+        password.type ===
+        "password"
+    ) {
+
+
+        password.type =
+            "text";
+
+
+        icon.classList.remove(
+            "fa-eye"
+        );
+
+
+        icon.classList.add(
+            "fa-eye-slash"
+        );
+
+
+        button.setAttribute(
+            "aria-label",
+            "Hide password"
+        );
+
+
+        button.setAttribute(
+            "title",
+            "Hide password"
+        );
+
+
+    }
+
+    else {
+
+
+        password.type =
+            "password";
+
+
+        icon.classList.remove(
+            "fa-eye-slash"
+        );
+
+
+        icon.classList.add(
+            "fa-eye"
+        );
+
+
+        button.setAttribute(
+            "aria-label",
+            "Show password"
+        );
+
+
+        button.setAttribute(
+            "title",
+            "Show password"
+        );
+
+
+    }
+
+
+}
+
+
+
+/* ==============================================
+   REMEMBER EMAIL
+============================================== */
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    function () {
+
+
+        const emailInput =
+            document.getElementById(
+                "email"
+            );
+
+
+        const rememberMe =
+            document.getElementById(
+                "rememberMe"
+            );
+
+
+        const loginForm =
+            document.getElementById(
+                "loginForm"
+            );
+
+
+
+        /* --------------------------------------
+           LOAD SAVED EMAIL
+        -------------------------------------- */
+
+        const savedEmail =
+            localStorage.getItem(
+                "yatrasathi_saved_email"
+            );
+
+
+
+        if (savedEmail) {
+
+
+            emailInput.value =
+                savedEmail;
+
+
+            rememberMe.checked =
+                true;
+
+
+        }
+
+
+
+        /* --------------------------------------
+           SAVE EMAIL ON LOGIN
+        -------------------------------------- */
+
+        loginForm.addEventListener(
+
+            "submit",
+
+            function () {
+
+
+                const email =
+                    emailInput.value.trim();
+
+
+
+                if (
+                    rememberMe.checked
+                    &&
+                    email
+                ) {
+
+
+                    localStorage.setItem(
+
+                        "yatrasathi_saved_email",
+
+                        email
+
+                    );
+
+
+                }
+
+                else {
+
+
+                    localStorage.removeItem(
+                        "yatrasathi_saved_email"
+                    );
+
+
+                }
+
+
+                /*
+                    IMPORTANT:
+
+                    We intentionally DO NOT save
+                    the password in localStorage.
+
+                    Chrome / Edge / Google Password
+                    Manager can handle password
+                    saving securely.
+                */
+
+
+            }
+
+        );
+
+
+        /* --------------------------------------
+           REMOVE EMAIL WHEN USER UNCHECKS
+        -------------------------------------- */
+
+        rememberMe.addEventListener(
+
+            "change",
+
+            function () {
+
+
+                if (
+                    !rememberMe.checked
+                ) {
+
+
+                    localStorage.removeItem(
+                        "yatrasathi_saved_email"
+                    );
+
+
+                }
+
+
+            }
+
+        );
+
+
+    }
+
+);
+
+
+</script>
+
+
+</body>
+
+</html>

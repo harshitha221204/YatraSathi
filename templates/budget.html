@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Budget Planner | YatraSathi</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #fff8f2;
+            color: #333;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: white;
+            padding: 15px 7%;
+            box-shadow: 0 3px 15px rgba(0,0,0,.08);
+        }
+
+        .brand {
+            color: #f47b20;
+            text-decoration: none;
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .nav-link {
+            color: #333 !important;
+            font-weight: 600;
+            margin-left: 20px;
+        }
+
+        .nav-link:hover {
+            color: #f47b20 !important;
+        }
+
+        /* HEADER */
+
+        .page-header {
+            text-align: center;
+            padding: 60px 20px 35px;
+        }
+
+        .page-header h1 {
+            font-size: 45px;
+            font-weight: 800;
+        }
+
+        .page-header h1 span {
+            color: #f47b20;
+        }
+
+        .page-header p {
+            color: #777;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        /* MAIN */
+
+        .planner-container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .planner-card {
+            background: white;
+            border-radius: 22px;
+            padding: 35px;
+            box-shadow: 0 8px 30px rgba(0,0,0,.08);
+            border: 1px solid #f2e5da;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* FORM */
+
+        .form-label {
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .form-control,
+        .form-select {
+            min-height: 50px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #f47b20;
+            box-shadow: 0 0 0 3px rgba(244,123,32,.12);
+        }
+
+        .generate-btn {
+            width: 100%;
+            border: none;
+            background: #f47b20;
+            color: white;
+            padding: 15px;
+            border-radius: 11px;
+            font-size: 17px;
+            font-weight: 750;
+            margin-top: 15px;
+            transition: .25s;
+        }
+
+        .generate-btn:hover {
+            background: #d9600e;
+            transform: translateY(-2px);
+        }
+
+        /* RESULT */
+
+        .result-card {
+            background: #fff3e8;
+            border-radius: 22px;
+            padding: 30px;
+            min-height: 100%;
+            border: 1px solid #f5d8c0;
+        }
+
+        .result-title {
+            font-size: 25px;
+            font-weight: 800;
+            margin-bottom: 25px;
+        }
+
+        .result-title span {
+            color: #f47b20;
+        }
+
+        .budget-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 17px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .budget-item i {
+            color: #f47b20;
+            margin-right: 8px;
+        }
+
+        .budget-item strong {
+            font-size: 17px;
+        }
+
+        .total-box {
+            margin-top: 20px;
+            background: #f47b20;
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .tip {
+            margin-top: 20px;
+            background: white;
+            padding: 18px;
+            border-radius: 12px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* FOOTER */
+
+        footer {
+            margin-top: 70px;
+            background: #292522;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        footer .logo {
+            color: #f47b20;
+            font-size: 23px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        footer p {
+            color: #bbb;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+
+            .page-header h1 {
+                font-size: 35px;
+            }
+
+            .planner-card {
+                padding: 25px;
+            }
+
+            .nav-link {
+                margin-left: 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg">
+
+    <div class="container-fluid">
+
+        <a
+            href="{{ url_for('home') }}"
+            class="brand">
+
+            🧭 YatraSathi
+
+        </a>
+
+
+        <div class="ms-auto d-flex flex-wrap gap-3">
+
+            <a
+                href="{{ url_for('home') }}"
+                class="nav-link">
+
+                Home
+
+            </a>
+
+            <a
+                href="{{ url_for('explore') }}"
+                class="nav-link">
+
+                Explore
+
+            </a>
+
+            <a
+                href="{{ url_for('planner') }}"
+                class="nav-link">
+
+                Planner
+
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- HEADER -->
+
+<header class="page-header">
+
+    <h1>
+        💰 <span>Budget</span> Planner
+    </h1>
+
+    <p>
+        Plan your Karnataka trip without exceeding your budget.
+    </p>
+
+</header>
+
+
+<!-- MAIN -->
+
+<main class="planner-container">
+
+    <div class="row g-4">
+
+
+        <!-- INPUT -->
+
+        <div class="col-lg-6">
+
+            <div class="planner-card">
+
+                <div class="section-title">
+                    ✨ Enter Your Trip Details
+                </div>
+
+
+                <form id="budgetForm">
+
+
+                    <!-- DESTINATION -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            📍 Destination
+                        </label>
+
+                        <input
+                            type="text"
+                            id="destination"
+                            class="form-control"
+                            placeholder="Example: Hampi"
+                            required>
+
+                    </div>
+
+
+                    <!-- DAYS -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            📅 Number of Days
+                        </label>
+
+                        <input
+                            type="number"
+                            id="days"
+                            class="form-control"
+                            min="1"
+                            value="2"
+                            required>
+
+                    </div>
+
+
+                    <!-- TRAVELERS -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            👥 Number of Travelers
+                        </label>
+
+                        <input
+                            type="number"
+                            id="travelers"
+                            class="form-control"
+                            min="1"
+                            value="2"
+                            required>
+
+                    </div>
+
+
+                    <!-- TRAVEL STYLE -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            🚗 Travel Style
+                        </label>
+
+                        <select
+                            id="style"
+                            class="form-select">
+
+                            <option value="budget">
+                                💰 Budget
+                            </option>
+
+                            <option value="comfort">
+                                🏨 Comfort
+                            </option>
+
+                            <option value="luxury">
+                                ✨ Luxury
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="generate-btn">
+
+                        <i class="fa-solid fa-calculator"></i>
+
+                        Calculate Budget
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESULT -->
+
+        <div class="col-lg-6">
+
+            <div
+                class="result-card"
+                id="result">
+
+                <div class="result-title">
+
+                    🤖 Your <span>Trip Budget</span>
+
+                </div>
+
+                <p>
+                    Enter your trip details and click
+                    <b>Calculate Budget</b>.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="logo">
+        🧭 YatraSathi
+    </div>
+
+    <p>
+        Explore Karnataka Like Never Before
+    </p>
+
+</footer>
+
+
+<script>
+
+document
+.getElementById("budgetForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+
+    const days =
+        Number(document.getElementById("days").value);
+
+    const travelers =
+        Number(document.getElementById("travelers").value);
+
+    const style =
+        document.getElementById("style").value;
+
+    const destination =
+        document.getElementById("destination").value;
+
+
+    let dailyTravel;
+    let dailyHotel;
+    let dailyFood;
+
+
+    if (style === "budget") {
+
+        dailyTravel = 500;
+        dailyHotel = 800;
+        dailyFood = 400;
+
+    }
+
+    else if (style === "comfort") {
+
+        dailyTravel = 900;
+        dailyHotel = 1600;
+        dailyFood = 700;
+
+    }
+
+    else {
+
+        dailyTravel = 1800;
+        dailyHotel = 3500;
+        dailyFood = 1400;
+
+    }
+
+
+    const travel =
+        dailyTravel * days * travelers;
+
+    const hotel =
+        dailyHotel * days * travelers;
+
+    const food =
+        dailyFood * days * travelers;
+
+
+    const sightseeing =
+        300 * travelers;
+
+
+    const total =
+        travel +
+        hotel +
+        food +
+        sightseeing;
+
+
+    document.getElementById("result").innerHTML = `
+
+        <div class="result-title">
+
+            💰 ${destination}
+            <span>Budget</span>
+
+        </div>
+
+
+        <div class="budget-item">
+
+            <span>
+                <i class="fa-solid fa-bus"></i>
+                Transportation
+            </span>
+
+            <strong>
+                ₹${travel.toLocaleString("en-IN")}
+            </strong>
+
+        </div>
+
+
+        <div class="budget-item">
+
+            <span>
+                <i class="fa-solid fa-hotel"></i>
+                Accommodation
+            </span>
+
+            <strong>
+                ₹${hotel.toLocaleString("en-IN")}
+            </strong>
+
+        </div>
+
+
+        <div class="budget-item">
+
+            <span>
+                <i class="fa-solid fa-utensils"></i>
+                Food
+            </span>
+
+            <strong>
+                ₹${food.toLocaleString("en-IN")}
+            </strong>
+
+        </div>
+
+
+        <div class="budget-item">
+
+            <span>
+                <i class="fa-solid fa-ticket"></i>
+                Sightseeing
+            </span>
+
+            <strong>
+                ₹${sightseeing.toLocaleString("en-IN")}
+            </strong>
+
+        </div>
+
+
+        <div class="total-box">
+
+            <span>
+                Estimated Total
+            </span>
+
+            <span>
+                ₹${total.toLocaleString("en-IN")}
+            </span>
+
+        </div>
+
+
+        <div class="tip">
+
+            💡 <b>YatraSathi Tip:</b>
+
+            This is an estimated budget.
+            Actual costs may vary depending on
+            season, hotel prices, transportation
+            and activities.
+
+        </div>
+
+    `;
+
+});
+
+</script>
+
+
+</body>
+
+</html>
